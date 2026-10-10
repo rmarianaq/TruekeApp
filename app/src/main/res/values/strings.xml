@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">TruekeApp</string>
+    <string name="app_name">Trueke</string>
+    <string name="logo_content_description">Logo de Trueke</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Dale una segunda vida a tus cosas</string>
+    <string name="onboarding_description">Trueke es la comunidad donde cambias lo que ya no usas por lo que sí necesitas, cerca de ti y sin gastar dinero.</string>
+    <string name="onboarding_feature_publish">Publica lo que ya no usas</string>
+    <string name="onboarding_feature_find">Encuentra lo que necesitas cerca de ti</string>
+    <string name="onboarding_feature_exchange">Intercambia sin dinero y gana puntos</string>
+    <string name="onboarding_create_account">Crear cuenta</string>
+    <string name="onboarding_login">Ya tengo cuenta</string>
 </resources>
