@@ -1,4 +1,4 @@
-package co.edu.uniquindio.truekeapp.ui.theme
+package co.edu.uniquindio.truekeapp.core.theme
 
 import androidx.compose.ui.graphics.Color
 
