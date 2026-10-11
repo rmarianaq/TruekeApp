@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import co.edu.uniquindio.truekeapp.core.theme.TruekeAppTheme
-import co.edu.uniquindio.truekeapp.features.onboarding.OnboardingScreen
+import co.edu.uniquindio.truekeapp.navigation.AppNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,11 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TruekeAppTheme {
-                // Temporal: cuando tengamos login y registro, aquí va la navegación
-                OnboardingScreen(
-                    onCreateAccountClick = {},
-                    onLoginClick = {},
-                )
+                AppNavigation()
             }
         }
     }
