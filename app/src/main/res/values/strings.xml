@@ -115,4 +115,22 @@
         <item quantity="many">%d interesados</item>
         <item quantity="other">%d interesados</item>
     </plurals>
+
+    <!-- Niveles -->
+    <string name="level_novato">Novato</string>
+    <string name="level_intercambiador">Intercambiador</string>
+    <string name="level_negociante">Negociante</string>
+    <string name="level_maestro">Maestro del Trueque</string>
+
+    <!-- Detalle -->
+    <string name="detail_description">Descripción</string>
+    <string name="detail_wants">Busca a cambio</string>
+    <string name="detail_location">Punto de intercambio</string>
+    <string name="detail_owner_level">%1$s · %2$d puntos</string>
+    <string name="detail_interest_hint">en este objeto</string>
+    <string name="detail_interest_remove">Ya no me interesa</string>
+    <string name="detail_interest_added">Agregado a tus intereses</string>
+    <string name="detail_interest_removed">Quitado de tus intereses</string>
+    <string name="detail_mine">Es tu publicación</string>
+    <string name="detail_not_found">Esta publicación ya no está disponible</string>
 </resources>

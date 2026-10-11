@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import co.edu.uniquindio.truekeapp.R
 import co.edu.uniquindio.truekeapp.domain.model.Category
 import co.edu.uniquindio.truekeapp.domain.model.ItemCondition
+import co.edu.uniquindio.truekeapp.domain.model.UserLevel
 
 // Cómo se MUESTRA cada categoría y estado: texto traducible + ícono
 
@@ -46,4 +47,13 @@ val ItemCondition.labelRes: Int
         ItemCondition.LIKE_NEW -> R.string.condition_like_new
         ItemCondition.GOOD -> R.string.condition_good
         ItemCondition.USED -> R.string.condition_used
+    }
+
+@get:StringRes
+val UserLevel.labelRes: Int
+    get() = when (this) {
+        UserLevel.NOVATO -> R.string.level_novato
+        UserLevel.INTERCAMBIADOR -> R.string.level_intercambiador
+        UserLevel.NEGOCIANTE -> R.string.level_negociante
+        UserLevel.MAESTRO_DEL_TRUEQUE -> R.string.level_maestro
     }
