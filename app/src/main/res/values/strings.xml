@@ -133,4 +133,19 @@
     <string name="detail_interest_removed">Quitado de tus intereses</string>
     <string name="detail_mine">Es tu publicación</string>
     <string name="detail_not_found">Esta publicación ya no está disponible</string>
+
+    <string name="create_title">Nueva publicación</string>
+    <string name="create_subtitle">Cuéntale a la comunidad qué quieres intercambiar.</string>
+    <string name="create_photo_hint">Foto de ejemplo. La carga de imágenes llega en la Fase 3.</string>
+    <string name="field_title">Título del objeto</string>
+    <string name="field_description">Descripción</string>
+    <string name="field_wanted">¿Qué quieres a cambio? (separa con comas)</string>
+    <string name="create_category">Categoría</string>
+    <string name="create_condition">Estado del objeto</string>
+    <string name="create_button">Publicar objeto</string>
+    <string name="create_success">¡Listo! Tu publicación quedó pendiente de revisión.</string>
+    <string name="error_title_required">Ingresa un título (mínimo 5 caracteres)</string>
+    <string name="error_description_required">Describe tu objeto (mínimo 15 caracteres)</string>
+    <string name="error_category_required">Elige una categoría</string>
+    <string name="error_wanted_required">Indica al menos un objeto que quieras a cambio</string>
 </resources>

@@ -15,6 +15,7 @@ import co.edu.uniquindio.truekeapp.features.onboarding.OnboardingScreen
 import co.edu.uniquindio.truekeapp.features.auth.recoverpass.RecoverPasswordScreen
 import co.edu.uniquindio.truekeapp.features.publication.feed.FeedScreen
 import co.edu.uniquindio.truekeapp.features.publication.detail.PublicationDetailScreen
+import co.edu.uniquindio.truekeapp.features.publication.create.CreatePublicationScreen
 
 private const val TRANSITION_MS = 350
 
@@ -85,7 +86,7 @@ fun AppNavigation() {
                 onPublicationClick = { publicationId ->
                     navController.navigate(MainRoutes.PublicationDetail(publicationId))
                 },
-                onCreatePublicationClick = { /* Paso 11: nueva publicación */ },
+                onCreatePublicationClick = { navController.navigate(MainRoutes.CreatePublication) },
                 onLogout = {
                     navController.navigate(MainRoutes.Onboarding) {
                         popUpTo(MainRoutes.Feed) { inclusive = true }
@@ -96,6 +97,12 @@ fun AppNavigation() {
         composable<MainRoutes.PublicationDetail> {
             PublicationDetailScreen(
                 onBackClick = { navController.popBackStack() },
+            )
+        }
+        composable<MainRoutes.CreatePublication> {
+            CreatePublicationScreen(
+                onBackClick = { navController.popBackStack() },
+                onPublished = { navController.popBackStack() },
             )
         }
     }
