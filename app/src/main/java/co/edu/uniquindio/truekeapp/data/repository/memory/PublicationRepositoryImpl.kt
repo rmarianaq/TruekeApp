@@ -36,6 +36,21 @@ class PublicationRepositoryImpl @Inject constructor() : PublicationRepository {
         _publications.update { list -> list.filterNot { it.id == id } }
     }
 
+    override suspend fun toggleInterest(publicationId: String, userId: String) {
+        _publications.update { list ->
+            list.map { publication ->
+                if (publication.id != publicationId) {
+                    publication
+                } else {
+                    val interested = publication.interestedUserIds
+                    publication.copy(
+                        interestedUserIds = if (userId in interested) interested - userId else interested + userId
+                    )
+                }
+            }
+        }
+    }
+
     // ─── Datos de prueba ─────────────────────────────────────────
     private fun seedPublications(): List<Publication> {
         val now = System.currentTimeMillis()

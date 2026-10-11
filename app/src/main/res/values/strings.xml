@@ -73,4 +73,46 @@
     <string name="recover_resend">Reenviar enlace</string>
     <string name="recover_resend_in">Reenviar en %1$d s</string>
     <string name="recover_use_other_email">Usar otro correo</string>
+
+    <!-- Acciones -->
+    <string name="action_clear">Borrar</string>
+    <string name="action_logout">Cerrar sesión</string>
+    <string name="action_interest">Me interesa</string>
+
+    <!-- Categorías -->
+    <string name="category_all">Todas</string>
+    <string name="category_technology">Tecnología</string>
+    <string name="category_books">Libros</string>
+    <string name="category_clothing">Ropa</string>
+    <string name="category_home">Hogar</string>
+    <string name="category_sports">Deportes</string>
+    <string name="category_toys">Juguetes</string>
+    <string name="category_other">Otros</string>
+
+    <!-- Estado del objeto -->
+    <string name="condition_new">Nuevo</string>
+    <string name="condition_like_new">Como nuevo</string>
+    <string name="condition_good">Buen estado</string>
+    <string name="condition_used">Usado</string>
+
+    <!-- Tiempo -->
+    <string name="time_just_now">Justo ahora</string>
+    <string name="time_minutes_ago">Hace %1$d min</string>
+    <string name="time_hours_ago">Hace %1$d h</string>
+    <string name="time_days_ago">Hace %1$d d</string>
+
+    <!-- Feed -->
+    <string name="feed_greeting">Hola, %1$s</string>
+    <string name="feed_subtitle">¿Qué quieres intercambiar hoy?</string>
+    <string name="feed_search">Buscar objetos…</string>
+    <string name="feed_publish">Publicar</string>
+    <string name="feed_wants">Busca: %1$s</string>
+    <string name="feed_mine">Tuya</string>
+    <string name="feed_empty_title">No encontramos nada por aquí</string>
+    <string name="feed_empty_message">Prueba con otra búsqueda o categoría.</string>
+    <plurals name="feed_interested">
+        <item quantity="one">%d interesado</item>
+        <item quantity="many">%d interesados</item>
+        <item quantity="other">%d interesados</item>
+    </plurals>
 </resources>

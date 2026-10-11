@@ -8,6 +8,7 @@ val TruekeVioletDeep = Color(0xFF2E1065)
 val TruekeViolet = Color(0xFF7245B7)
 val TruekeOrchid = Color(0xFFA855F7)
 val TruekeAmber = Color(0xFFF59E0B)
+val TruekeHeart = Color(0xFFE11D48)
 
 // ─── Esquema claro ──────────────────────────────────────────────
 val lightPrimary = Color(0xFF7245B7)
