@@ -2,6 +2,8 @@ package co.edu.uniquindio.truekeapp.core.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -39,7 +41,12 @@ fun TruekeSnackbarHost(
     hostState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
-    SnackbarHost(hostState = hostState, modifier = modifier) { data ->
+    SnackbarHost(
+        hostState = hostState,
+        modifier = modifier
+            .navigationBarsPadding()   // por encima de la barra de gestos
+            .imePadding(),             // y por encima del teclado si está abierto
+    ) { data ->
         val isError = (data.visuals as? TruekeSnackbarVisuals)?.isError == true
         val colors = MaterialTheme.colorScheme
 

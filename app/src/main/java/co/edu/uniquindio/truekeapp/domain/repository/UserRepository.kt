@@ -13,4 +13,6 @@ interface UserRepository {
     suspend fun save(user: User)
     suspend fun findById(id: String): User?
     suspend fun findByEmail(email: String): User?
+
+    suspend fun sendPasswordResetEmail(email: String)
 }

@@ -84,4 +84,9 @@ class UserRepositoryImpl @Inject constructor() : UserRepository {
 
     override suspend fun findByEmail(email: String): User? =
         users.value.find { it.email.equals(email.trim(), ignoreCase = true) }
+
+    override suspend fun sendPasswordResetEmail(email: String) {
+        // En memoria no hay servidor de correo.
+        // En la Fase 3 esta función llamará a Firebase, que envía el enlace de verdad.
+    }
 }
