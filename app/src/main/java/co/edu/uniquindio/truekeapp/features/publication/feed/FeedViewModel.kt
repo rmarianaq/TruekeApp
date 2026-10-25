@@ -5,8 +5,14 @@ import androidx.lifecycle.viewModelScope
 import co.edu.uniquindio.truekeapp.domain.model.Category
 import co.edu.uniquindio.truekeapp.domain.model.Publication
 import co.edu.uniquindio.truekeapp.domain.model.PublicationStatus
+import co.edu.uniquindio.truekeapp.domain.repository.NotificationRepository
 import co.edu.uniquindio.truekeapp.domain.repository.PublicationRepository
 import co.edu.uniquindio.truekeapp.domain.repository.UserRepository
+import co.edu.uniquindio.truekeapp.domain.service.ChainMatch
+import co.edu.uniquindio.truekeapp.domain.service.ChainMatchFinder
+import co.edu.uniquindio.truekeapp.domain.service.GeoUtils
+import co.edu.uniquindio.truekeapp.domain.service.Suggestion
+import co.edu.uniquindio.truekeapp.domain.service.SuggestionEngine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,6 +28,7 @@ data class FeedItem(
     val ownerName: String,
     val isMine: Boolean,
     val isInterested: Boolean,
+    val distanceKm: Double? = null,
 )
 
 data class FeedUiState(
@@ -29,33 +36,41 @@ data class FeedUiState(
     val query: String = "",
     val selectedCategory: Category? = null,
     val items: List<FeedItem> = emptyList(),
+    val suggestions: List<Suggestion> = emptyList(),
+    val chainMatch: ChainMatch? = null,
+    val unreadNotifications: Int = 0,
     val isLoading: Boolean = true,
-)
+) {
+    // Las secciones especiales solo se muestran cuando no hay filtros activos
+    val showHighlights: Boolean get() = query.isBlank() && selectedCategory == null
+}
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val publicationRepository: PublicationRepository,
     private val userRepository: UserRepository,
+    notificationRepository: NotificationRepository,
 ) : ViewModel() {
 
     private val query = MutableStateFlow("")
     private val selectedCategory = MutableStateFlow<Category?>(null)
 
-    // El estado se CALCULA combinando 4 fuentes. Si cualquiera cambia, se recalcula solo.
+    // El estado se CALCULA combinando 5 fuentes. Si cualquiera cambia, se recalcula solo.
     val uiState: StateFlow<FeedUiState> = combine(
         publicationRepository.publications,
         userRepository.currentUser,
+        notificationRepository.notifications,
         query,
         selectedCategory,
-    ) { publications, currentUser, query, category ->
+    ) { publications, currentUser, notifications, query, category ->
 
         val items = publications
             .filter { it.status == PublicationStatus.VERIFIED }
             .filter { category == null || it.category == category }
             .filter {
                 query.isBlank() ||
-                        it.title.contains(query.trim(), ignoreCase = true) ||
-                        it.description.contains(query.trim(), ignoreCase = true)
+                    it.title.contains(query.trim(), ignoreCase = true) ||
+                    it.description.contains(query.trim(), ignoreCase = true)
             }
             .sortedByDescending { it.createdAt }
             .map { publication ->
@@ -64,6 +79,7 @@ class FeedViewModel @Inject constructor(
                     ownerName = userRepository.findById(publication.ownerId)?.name.orEmpty(),
                     isMine = publication.ownerId == currentUser?.id,
                     isInterested = currentUser != null && currentUser.id in publication.interestedUserIds,
+                    distanceKm = currentUser?.location?.let { GeoUtils.distanceKm(it, publication.location) },
                 )
             }
 
@@ -72,6 +88,9 @@ class FeedViewModel @Inject constructor(
             query = query,
             selectedCategory = category,
             items = items,
+            suggestions = currentUser?.let { SuggestionEngine.suggest(it, publications, limit = 6) }.orEmpty(),
+            chainMatch = currentUser?.let { ChainMatchFinder.find(it.id, publications) },
+            unreadNotifications = notifications.count { it.userId == currentUser?.id && !it.isRead },
             isLoading = false,
         )
     }.stateIn(
@@ -94,9 +113,5 @@ class FeedViewModel @Inject constructor(
         viewModelScope.launch {
             publicationRepository.toggleInterest(publicationId, userId)
         }
-    }
-
-    fun logout() {
-        viewModelScope.launch { userRepository.logout() }
     }
 }

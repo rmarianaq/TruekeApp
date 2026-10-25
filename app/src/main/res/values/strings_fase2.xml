@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos de la Fase 2 (bloque 1). Android junta todos los archivos de values/ como si fueran uno solo. -->
+<resources>
+    <!-- Comunes -->
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_see_all">Ver todas</string>
+    <string name="distance_km_decimal">%1$.1f km</string>
+    <string name="distance_km">%1$d km</string>
+    <string name="status_pending">Pendiente</string>
+    <string name="status_accepted">Aceptada</string>
+    <string name="status_rejected">Rechazada</string>
+    <string name="trust_badge">Confianza %1$d%%</string>
+
+    <!-- Barra inferior -->
+    <string name="tab_home">Inicio</string>
+    <string name="tab_proposals">Propuestas</string>
+    <string name="tab_profile">Perfil</string>
+
+    <!-- Detalle -->
+    <string name="detail_comments">Comentarios (%1$d)</string>
+    <string name="detail_edit">Editar publicación</string>
+    <string name="detail_propose">Proponer intercambio</string>
+    <string name="detail_proposal_sent">Propuesta enviada</string>
+    <string name="detail_report">Reportar</string>
+    <string name="detail_reported">Reportada</string>
+    <string name="detail_report_title">¿Reportar esta publicación?</string>
+    <string name="detail_report_message">Un moderador revisará si incumple las normas de la comunidad. Los reportes afectan el score de confianza del dueño.</string>
+    <string name="detail_report_success">Gracias. Un moderador revisará esta publicación.</string>
+
+    <!-- Proponer intercambio -->
+    <string name="propose_title">Proponer intercambio</string>
+    <string name="propose_message">Cuéntale al dueño qué le ofreces a cambio. Recibirá una notificación con tu propuesta.</string>
+    <string name="propose_field">¿Qué ofreces a cambio?</string>
+    <string name="propose_send">Enviar propuesta</string>
+    <string name="propose_success">¡Propuesta enviada! Te avisaremos cuando responda.</string>
+    <string name="propose_error_empty">Escribe qué ofreces a cambio</string>
+
+    <!-- Comentarios -->
+    <string name="comments_title">Comentarios</string>
+    <string name="comments_about">Sobre: %1$s</string>
+    <string name="comments_placeholder">Escribe un comentario…</string>
+    <string name="comments_send">Enviar comentario</string>
+    <string name="comments_owner">Dueño</string>
+    <string name="comments_success">Comentario publicado</string>
+    <string name="comments_error_empty">Escribe algo antes de enviar</string>
+    <string name="comments_empty_title">Aún no hay comentarios</string>
+    <string name="comments_empty_message">Sé la primera persona en preguntar por este objeto.</string>
+
+    <!-- Notificaciones -->
+    <string name="notifications_title">Notificaciones</string>
+    <string name="notifications_unread">%1$d sin leer</string>
+    <string name="notifications_mark_all">Marcar todas como leídas</string>
+    <string name="notifications_mark_read">Marcar como leída</string>
+    <string name="notifications_mark_unread">Marcar como no leída</string>
+    <string name="notifications_empty_title">Estás al día</string>
+    <string name="notifications_empty_message">Aquí verás comentarios, propuestas y avisos de moderación.</string>
+    <string name="notif_comment_title">Nuevo comentario</string>
+    <string name="notif_comment_message">%1$s comentó en tu publicación \"%2$s\"</string>
+    <string name="notif_proposal_title">Nueva propuesta recibida</string>
+    <string name="notif_proposal_message">%1$s quiere intercambiar por tu \"%2$s\"</string>
+    <string name="notif_accepted_title">Propuesta aceptada</string>
+    <string name="notif_accepted_message">%1$s aceptó tu propuesta por \"%2$s\"</string>
+    <string name="notif_rejected_title">Propuesta rechazada</string>
+    <string name="notif_rejected_message">%1$s rechazó tu propuesta por \"%2$s\"</string>
+    <string name="notif_verified_title">Publicación verificada</string>
+    <string name="notif_verified_message">Tu publicación \"%1$s\" fue verificada por un moderador</string>
+    <string name="notif_pub_rejected_title">Publicación rechazada</string>
+    <string name="notif_pub_rejected_message">Tu publicación \"%1$s\" fue rechazada. Revisa el motivo en Mis publicaciones.</string>
+
+    <!-- Perfil -->
+    <string name="profile_level">Nivel: %1$s</string>
+    <string name="profile_next_level">%1$d / %2$d puntos para pasar a %3$s</string>
+    <string name="profile_max_level">¡Alcanzaste el nivel máximo!</string>
+    <string name="profile_publications">Publicaciones</string>
+    <string name="profile_exchanges">Intercambios</string>
+    <string name="profile_my_publications">Mis publicaciones</string>
+    <string name="edit_profile_title">Editar perfil</string>
+    <string name="statistics_title">Estadísticas</string>
+    <string name="badges_title">Insignias</string>
+    <string name="logout_title">¿Cerrar sesión?</string>
+    <string name="logout_message">Tendrás que volver a ingresar tu correo y contraseña.</string>
+
+    <!-- Me interesa -->
+    <string name="favorites_title">Me interesa</string>
+    <string name="favorites_intro">Publicaciones que has marcado como \"Me interesa\".</string>
+    <string name="favorites_empty_title">Todavía no marcas nada</string>
+    <string name="favorites_empty_message">Toca el corazón en una publicación para guardarla aquí.</string>
+
+    <!-- Propuestas -->
+    <string name="proposals_title">Mis propuestas</string>
+    <string name="proposals_subtitle">Trueques que recibes y que envías</string>
+    <string name="proposals_received">Recibidas (%1$d)</string>
+    <string name="proposals_sent">Enviadas (%1$d)</string>
+    <string name="proposals_offers">%1$s ofrece: %2$s</string>
+    <string name="proposals_you_offer">A %1$s · ofreces: %2$s</string>
+    <string name="proposals_accept">Aceptar</string>
+    <string name="proposals_reject">Rechazar</string>
+    <string name="proposals_chain">En cadena</string>
+    <string name="proposals_accepted_msg">¡Trueque aceptado! Ambos ganaron 50 puntos.</string>
+    <string name="proposals_rejected_msg">Propuesta rechazada</string>
+    <string name="proposals_empty_title">No hay propuestas aquí</string>
+    <string name="proposals_empty_message">Cuando propongas o recibas un trueque, aparecerá en esta lista.</string>
+
+    <!-- Funcionalidad innovadora: Sugerencias -->
+    <string name="suggestions_title">Sugerencias para ti</string>
+    <string name="suggestions_carousel_title">Sugerido para ti</string>
+    <string name="suggestions_intro">Armamos esta lista combinando tus categorías favoritas, las publicaciones que marcaste con \"Me interesa\" y lo que se mueve cerca de ti.</string>
+    <string name="suggestions_algorithm">Recomendación por similitud: categorías, popularidad y cercanía</string>
+    <string name="suggestions_empty_title">Aún no tenemos sugerencias</string>
+    <string name="suggestions_empty_message">Marca publicaciones con \"Me interesa\" para que aprendamos qué te gusta.</string>
+    <string name="reason_category">Por tu interés en %1$s</string>
+    <string name="reason_popular">Muy pedido en tu zona</string>
+    <string name="reason_nearby">Cerca de ti</string>
+    <string name="reason_new">Nuevo en Trueke</string>
+
+    <!-- Funcionalidad innovadora: Match en cadena -->
+    <string name="chain_title">Match en cadena</string>
+    <string name="chain_banner_title">¡Match en cadena detectado!</string>
+    <string name="chain_banner_message">%1$d personas pueden intercambiar entre sí. Toca para ver el ciclo.</string>
+    <string name="chain_card_title">Encontramos un trueque en cadena para ti</string>
+    <string name="chain_card_message">A veces el intercambio perfecto no es 1 a 1. Tú, %1$s forman un ciclo cerrado: cada uno recibe algo que quiere sin que nadie use dinero.</string>
+    <string name="chain_algorithm">Algoritmo: detección de ciclos en el grafo de intereses (matching multilateral)</string>
+    <string name="chain_how_title">Cómo se cierra el ciclo</string>
+    <string name="chain_you">Tú</string>
+    <string name="chain_you_give">Tú entregas</string>
+    <string name="chain_gives">%1$s entrega</string>
+    <string name="chain_receives">→ recibe %1$s</string>
+    <string name="chain_reserved">Los %1$d objetos quedan reservados mientras confirman su participación.</string>
+    <string name="chain_propose">Proponer trueque en cadena</string>
+    <string name="chain_already_proposed">Trueque en cadena propuesto</string>
+    <string name="chain_not_now">Ahora no</string>
+    <string name="chain_proposed">¡Listo! Enviamos la propuesta a los demás participantes.</string>
+    <string name="chain_empty_title">No hay un ciclo por ahora</string>
+    <string name="chain_empty_message">Marca más publicaciones con \"Me interesa\": cuando tus intereses formen un ciclo con otras personas, te avisaremos.</string>
+</resources>

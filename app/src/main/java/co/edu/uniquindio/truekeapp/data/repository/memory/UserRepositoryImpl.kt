@@ -15,7 +15,7 @@ import javax.inject.Singleton
 class UserRepositoryImpl @Inject constructor() : UserRepository {
 
     // Usuarios de prueba. El moderador va precargado, como exige la guía.
-    private val users = MutableStateFlow(
+    private val _users = MutableStateFlow(
         listOf(
             User(
                 id = "u1",
@@ -25,6 +25,7 @@ class UserRepositoryImpl @Inject constructor() : UserRepository {
                 address = "Cra 14 #21-30, Armenia",
                 location = Location(4.5339, -75.6811),
                 points = 620,
+                bio = "Me gusta reciclar y darle una segunda vida a las cosas que ya no uso.",
             ),
             User(
                 id = "u2",
@@ -53,12 +54,13 @@ class UserRepositoryImpl @Inject constructor() : UserRepository {
             ),
         )
     )
+    override val users: StateFlow<List<User>> = _users.asStateFlow()
 
     private val _currentUser = MutableStateFlow<User?>(null)
     override val currentUser: StateFlow<User?> = _currentUser.asStateFlow()
 
     override suspend fun login(email: String, password: String): User? {
-        val user = users.value.find {
+        val user = _users.value.find {
             it.email.equals(email.trim(), ignoreCase = true) && it.password == password
         }
         _currentUser.value = user
@@ -70,20 +72,27 @@ class UserRepositoryImpl @Inject constructor() : UserRepository {
     }
 
     override suspend fun save(user: User) {
-        users.update { list ->
+        _users.update { list ->
             if (list.any { it.id == user.id }) {
                 list.map { if (it.id == user.id) user else it }  // ya existe: lo reemplaza
             } else {
                 list + user                                       // es nuevo: lo agrega
             }
         }
+        // Si se editó el usuario con sesión iniciada, la sesión también se actualiza
+        if (_currentUser.value?.id == user.id) _currentUser.value = user
+    }
+
+    override suspend fun delete(id: String) {
+        _users.update { list -> list.filterNot { it.id == id } }
+        if (_currentUser.value?.id == id) _currentUser.value = null
     }
 
     override suspend fun findById(id: String): User? =
-        users.value.find { it.id == id }
+        _users.value.find { it.id == id }
 
     override suspend fun findByEmail(email: String): User? =
-        users.value.find { it.email.equals(email.trim(), ignoreCase = true) }
+        _users.value.find { it.email.equals(email.trim(), ignoreCase = true) }
 
     override suspend fun sendPasswordResetEmail(email: String) {
         // En memoria no hay servidor de correo.

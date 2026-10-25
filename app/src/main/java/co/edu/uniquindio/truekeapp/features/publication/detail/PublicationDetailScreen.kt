@@ -24,18 +24,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.Chat
+import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.AutoAwesome
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.rounded.Flag
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.SearchOff
-import androidx.compose.material.icons.rounded.WorkspacePremium
+import androidx.compose.material.icons.rounded.SwapHoriz
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -44,7 +49,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -61,16 +69,16 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.edu.uniquindio.truekeapp.R
 import co.edu.uniquindio.truekeapp.core.component.LightSystemBarIcons
+import co.edu.uniquindio.truekeapp.core.component.TrustBadge
 import co.edu.uniquindio.truekeapp.core.component.TruekeSnackbarHost
 import co.edu.uniquindio.truekeapp.core.component.UserAvatar
 import co.edu.uniquindio.truekeapp.core.component.icon
 import co.edu.uniquindio.truekeapp.core.component.labelRes
 import co.edu.uniquindio.truekeapp.core.component.showTruekeSnackbar
-import co.edu.uniquindio.truekeapp.core.theme.TruekeAmber
 import co.edu.uniquindio.truekeapp.core.theme.TruekeHeart
 import co.edu.uniquindio.truekeapp.core.util.RequestResult
+import co.edu.uniquindio.truekeapp.core.util.distanceText
 import co.edu.uniquindio.truekeapp.core.util.timeAgo
-import co.edu.uniquindio.truekeapp.domain.model.Publication
 import co.edu.uniquindio.truekeapp.domain.model.User
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
@@ -80,35 +88,32 @@ import coil3.request.crossfade
 @Composable
 fun PublicationDetailScreen(
     onBackClick: () -> Unit,
+    onCommentsClick: (String) -> Unit,
+    onEditClick: (String) -> Unit,
     viewModel: PublicationDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
 
+    var showProposeDialog by rememberSaveable { mutableStateOf(false) }
+    var showReportDialog by rememberSaveable { mutableStateOf(false) }
+
     LaunchedEffect(uiState.result) {
-        val result = uiState.result
-        if (result is RequestResult.Success) {
-            snackbarHostState.showTruekeSnackbar(context.getString(result.messageRes), isError = false)
-            viewModel.resetResult()
+        when (val result = uiState.result) {
+            is RequestResult.Success -> {
+                showProposeDialog = false
+                snackbarHostState.showTruekeSnackbar(context.getString(result.messageRes), isError = false)
+                viewModel.resetResult()
+            }
+            is RequestResult.Failure -> {
+                snackbarHostState.showTruekeSnackbar(context.getString(result.messageRes), isError = true)
+                viewModel.resetResult()
+            }
+            else -> Unit
         }
     }
 
-    PublicationDetailContent(
-        uiState = uiState,
-        snackbarHostState = snackbarHostState,
-        onBackClick = onBackClick,
-        onInterestClick = viewModel::toggleInterest,
-    )
-}
-
-@Composable
-private fun PublicationDetailContent(
-    uiState: PublicationDetailUiState,
-    snackbarHostState: SnackbarHostState,
-    onBackClick: () -> Unit,
-    onInterestClick: () -> Unit,
-) {
     val publication = uiState.publication
 
     Scaffold(
@@ -117,10 +122,10 @@ private fun PublicationDetailContent(
         bottomBar = {
             if (publication != null) {
                 DetailBottomBar(
-                    isMine = uiState.isMine,
-                    isInterested = uiState.isInterested,
-                    interestCount = publication.interestCount,
-                    onInterestClick = onInterestClick,
+                    uiState = uiState,
+                    onEditClick = { onEditClick(publication.id) },
+                    onReportClick = { showReportDialog = true },
+                    onProposeClick = { showProposeDialog = true },
                 )
             }
         },
@@ -133,29 +138,52 @@ private fun PublicationDetailContent(
             }
             publication == null -> NotFoundContent(onBackClick = onBackClick)
             else -> DetailBody(
-                publication = publication,
-                owner = uiState.owner,
-                isMine = uiState.isMine,
-                isInterested = uiState.isInterested,
+                uiState = uiState,
                 onBackClick = onBackClick,
-                onInterestClick = onInterestClick,
+                onInterestClick = viewModel::toggleInterest,
+                onCommentsClick = { onCommentsClick(publication.id) },
                 modifier = Modifier.padding(padding),
             )
         }
+    }
+
+    if (showProposeDialog) {
+        ProposeDialog(
+            isLoading = uiState.result is RequestResult.Loading,
+            onDismiss = { showProposeDialog = false },
+            onConfirm = viewModel::propose,
+        )
+    }
+
+    if (showReportDialog) {
+        AlertDialog(
+            onDismissRequest = { showReportDialog = false },
+            icon = { Icon(Icons.Rounded.Flag, contentDescription = null) },
+            title = { Text(stringResource(R.string.detail_report_title)) },
+            text = { Text(stringResource(R.string.detail_report_message)) },
+            confirmButton = {
+                Button(onClick = {
+                    showReportDialog = false
+                    viewModel.report()
+                }) { Text(stringResource(R.string.detail_report)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showReportDialog = false }) { Text(stringResource(R.string.action_cancel)) }
+            },
+        )
     }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun DetailBody(
-    publication: Publication,
-    owner: User?,
-    isMine: Boolean,
-    isInterested: Boolean,
+    uiState: PublicationDetailUiState,
     onBackClick: () -> Unit,
     onInterestClick: () -> Unit,
+    onCommentsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val publication = uiState.publication ?: return
     LightSystemBarIcons()
 
     Column(
@@ -177,7 +205,6 @@ private fun DetailBody(
                     .height(380.dp)
                     .background(MaterialTheme.colorScheme.surfaceVariant),
             )
-            // Sombra arriba para que se lean la hora y los botones sobre cualquier foto
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -196,12 +223,12 @@ private fun DetailBody(
                     contentDescription = stringResource(R.string.action_back),
                     onClick = onBackClick,
                 )
-                if (!isMine) {
+                if (!uiState.isMine) {
                     CircleIconButton(
-                        icon = if (isInterested) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
+                        icon = if (uiState.isInterested) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                         contentDescription = stringResource(R.string.action_interest),
                         onClick = onInterestClick,
-                        tint = if (isInterested) TruekeHeart else Color.White,
+                        tint = if (uiState.isInterested) TruekeHeart else Color.White,
                     )
                 }
             }
@@ -234,15 +261,22 @@ private fun DetailBody(
             Text(text = publication.title, style = MaterialTheme.typography.headlineMedium)
             Spacer(Modifier.height(4.dp))
             Text(
-                text = timeAgo(publication.createdAt),
+                text = listOfNotNull(
+                    timeAgo(publication.createdAt),
+                    uiState.distanceKm?.let { distanceText(it) },
+                    pluralStringResource(R.plurals.feed_interested, publication.interestCount, publication.interestCount),
+                ).joinToString(" · "),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
 
-            if (owner != null) {
+            uiState.owner?.let { owner ->
                 Spacer(Modifier.height(24.dp))
-                OwnerCard(owner = owner)
+                OwnerCard(owner = owner, trustScore = uiState.ownerTrustScore)
             }
+
+            Spacer(Modifier.height(12.dp))
+            CommentsCard(count = uiState.commentCount, onClick = onCommentsClick)
 
             Spacer(Modifier.height(28.dp))
             SectionTitle(text = stringResource(R.string.detail_description))
@@ -334,7 +368,7 @@ private fun InfoPill(
 }
 
 @Composable
-private fun OwnerCard(owner: User) {
+private fun OwnerCard(owner: User, trustScore: Int) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
@@ -357,13 +391,31 @@ private fun OwnerCard(owner: User) {
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+                Spacer(Modifier.height(6.dp))
+                // Funcionalidad innovadora 2: Score de confianza
+                TrustBadge(score = trustScore)
             }
-            Icon(
-                imageVector = Icons.Rounded.WorkspacePremium,
-                contentDescription = null,
-                tint = TruekeAmber,
-                modifier = Modifier.size(28.dp),
+        }
+    }
+}
+
+@Composable
+private fun CommentsCard(count: Int, onClick: () -> Unit) {
+    Surface(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+    ) {
+        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(Icons.AutoMirrored.Rounded.Chat, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+            Spacer(Modifier.width(12.dp))
+            Text(
+                text = stringResource(R.string.detail_comments, count),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.weight(1f),
             )
+            Icon(Icons.AutoMirrored.Rounded.KeyboardArrowRight, contentDescription = null)
         }
     }
 }
@@ -379,10 +431,10 @@ private fun SectionTitle(text: String) {
 
 @Composable
 private fun DetailBottomBar(
-    isMine: Boolean,
-    isInterested: Boolean,
-    interestCount: Int,
-    onInterestClick: () -> Unit,
+    uiState: PublicationDetailUiState,
+    onEditClick: () -> Unit,
+    onReportClick: () -> Unit,
+    onProposeClick: () -> Unit,
 ) {
     Surface(
         shadowElevation = 12.dp,
@@ -393,46 +445,43 @@ private fun DetailBottomBar(
                 .fillMaxWidth()
                 .navigationBarsPadding()
                 .padding(horizontal = 20.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = pluralStringResource(R.plurals.feed_interested, interestCount, interestCount),
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(
-                    text = stringResource(R.string.detail_interest_hint),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-
-            if (isMine) {
-                OutlinedButton(onClick = {}, enabled = false, modifier = Modifier.height(52.dp)) {
-                    Text(stringResource(R.string.detail_mine))
+            if (uiState.isMine) {
+                Button(
+                    onClick = onEditClick,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(52.dp),
+                ) {
+                    Icon(Icons.Rounded.Edit, contentDescription = null, modifier = Modifier.size(20.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.detail_edit), style = MaterialTheme.typography.titleSmall)
                 }
             } else {
-                Button(
-                    onClick = onInterestClick,
-                    modifier = Modifier.height(52.dp),
-                    colors = if (isInterested) {
-                        ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                        )
-                    } else {
-                        ButtonDefaults.buttonColors()
-                    },
+                OutlinedButton(
+                    onClick = onReportClick,
+                    enabled = !uiState.isReportedByMe,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(52.dp),
                 ) {
-                    Icon(
-                        imageVector = if (isInterested) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp),
+                    Text(
+                        stringResource(if (uiState.isReportedByMe) R.string.detail_reported else R.string.detail_report),
                     )
+                }
+                Button(
+                    onClick = onProposeClick,
+                    enabled = !uiState.hasPendingProposal,
+                    modifier = Modifier
+                        .weight(2f)
+                        .height(52.dp),
+                ) {
+                    Icon(Icons.Rounded.SwapHoriz, contentDescription = null, modifier = Modifier.size(20.dp))
                     Spacer(Modifier.width(8.dp))
                     Text(
                         text = stringResource(
-                            if (isInterested) R.string.detail_interest_remove else R.string.action_interest
+                            if (uiState.hasPendingProposal) R.string.detail_proposal_sent else R.string.detail_propose
                         ),
                         style = MaterialTheme.typography.titleSmall,
                     )
@@ -440,6 +489,46 @@ private fun DetailBottomBar(
             }
         }
     }
+}
+
+@Composable
+private fun ProposeDialog(
+    isLoading: Boolean,
+    onDismiss: () -> Unit,
+    onConfirm: (String) -> Unit,
+) {
+    var offered by rememberSaveable { mutableStateOf("") }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        icon = { Icon(Icons.Rounded.SwapHoriz, contentDescription = null) },
+        title = { Text(stringResource(R.string.propose_title)) },
+        text = {
+            Column {
+                Text(stringResource(R.string.propose_message), style = MaterialTheme.typography.bodyMedium)
+                Spacer(Modifier.height(12.dp))
+                OutlinedTextField(
+                    value = offered,
+                    onValueChange = { offered = it },
+                    label = { Text(stringResource(R.string.propose_field)) },
+                    singleLine = true,
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+        },
+        confirmButton = {
+            Button(onClick = { onConfirm(offered) }, enabled = !isLoading) {
+                if (isLoading) {
+                    CircularProgressIndicator(modifier = Modifier.size(18.dp), strokeWidth = 2.dp)
+                } else {
+                    Text(stringResource(R.string.propose_send))
+                }
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        },
+    )
 }
 
 @Composable

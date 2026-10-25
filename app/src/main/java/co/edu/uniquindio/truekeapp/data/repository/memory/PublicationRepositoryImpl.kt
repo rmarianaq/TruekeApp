@@ -36,6 +36,10 @@ class PublicationRepositoryImpl @Inject constructor() : PublicationRepository {
         _publications.update { list -> list.filterNot { it.id == id } }
     }
 
+    override suspend fun deleteByOwner(ownerId: String) {
+        _publications.update { list -> list.filterNot { it.ownerId == ownerId } }
+    }
+
     override suspend fun toggleInterest(publicationId: String, userId: String) {
         _publications.update { list ->
             list.map { publication ->
@@ -51,7 +55,22 @@ class PublicationRepositoryImpl @Inject constructor() : PublicationRepository {
         }
     }
 
+    override suspend fun report(publicationId: String, userId: String) {
+        _publications.update { list ->
+            list.map { publication ->
+                if (publication.id == publicationId && userId !in publication.reportedByUserIds) {
+                    publication.copy(reportedByUserIds = publication.reportedByUserIds + userId)
+                } else {
+                    publication
+                }
+            }
+        }
+    }
+
     // ─── Datos de prueba ─────────────────────────────────────────
+    // Los "Me interesa" están pensados para que exista un MATCH EN CADENA:
+    // Mariana quiere los libros de Laura, Laura quiere la bici de Carlos
+    // y Carlos quiere los audífonos de Mariana.
     private fun seedPublications(): List<Publication> {
         val now = System.currentTimeMillis()
         val hour = 3_600_000L
@@ -99,6 +118,7 @@ class PublicationRepositoryImpl @Inject constructor() : PublicationRepository {
                 address = "Cra 14 #21-30, Armenia",
                 ownerId = "u1",
                 status = PublicationStatus.VERIFIED,
+                interestedUserIds = listOf("u2"),
                 createdAt = now - 9 * hour,
             ),
             Publication(
@@ -141,8 +161,80 @@ class PublicationRepositoryImpl @Inject constructor() : PublicationRepository {
                 location = Location(4.5170, -75.6850),
                 address = "Barrio La Patria, Armenia",
                 ownerId = "u2",
-                status = PublicationStatus.PENDING,   // esta todavía no sale en el feed
+                status = PublicationStatus.PENDING,   // esperando al moderador
                 createdAt = now - 1 * hour,
+            ),
+            Publication(
+                id = "p7",
+                title = "Calculadora científica",
+                description = "Calculadora con funciones de estadística y matrices. Perfecta para la universidad.",
+                category = Category.TECHNOLOGY,
+                condition = ItemCondition.GOOD,
+                wantedItems = listOf("Libros de cálculo", "Audífonos"),
+                imageUrls = listOf("https://picsum.photos/seed/trueke-calculadora/800/600"),
+                location = Location(4.5310, -75.6790),
+                address = "Universidad del Quindío, Armenia",
+                ownerId = "u3",
+                status = PublicationStatus.VERIFIED,
+                interestedUserIds = listOf("u2"),
+                createdAt = now - 30 * hour,
+            ),
+            Publication(
+                id = "p8",
+                title = "Novela clásica ilustrada",
+                description = "Edición de colección con ilustraciones a color. Sin rayones ni hojas sueltas.",
+                category = Category.BOOKS,
+                condition = ItemCondition.LIKE_NEW,
+                wantedItems = listOf("Otra novela", "Lámpara de lectura"),
+                imageUrls = listOf("https://picsum.photos/seed/trueke-novela/800/600"),
+                location = Location(4.5420, -75.6700),
+                address = "Barrio Laureles, Armenia",
+                ownerId = "u2",
+                status = PublicationStatus.VERIFIED,
+                createdAt = now - 60 * hour,
+            ),
+            Publication(
+                id = "p9",
+                title = "Lámpara de escritorio",
+                description = "Lámpara LED con brazo articulado y tres niveles de luz.",
+                category = Category.HOME,
+                condition = ItemCondition.LIKE_NEW,
+                wantedItems = listOf("Juego de sartenes"),
+                imageUrls = listOf("https://picsum.photos/seed/trueke-lampara/800/600"),
+                location = Location(4.5339, -75.6811),
+                address = "Cra 14 #21-30, Armenia",
+                ownerId = "u1",
+                status = PublicationStatus.FINISHED,  // trueque ya realizado
+                createdAt = now - 120 * hour,
+            ),
+            Publication(
+                id = "p10",
+                title = "Mochila de viaje 40 L",
+                description = "Mochila impermeable con varios compartimentos y soporte lumbar.",
+                category = Category.SPORTS,
+                condition = ItemCondition.GOOD,
+                wantedItems = listOf("Carpa", "Saco de dormir"),
+                imageUrls = listOf("https://picsum.photos/seed/trueke-mochila/800/600"),
+                location = Location(4.5339, -75.6811),
+                address = "Cra 14 #21-30, Armenia",
+                ownerId = "u1",
+                status = PublicationStatus.PENDING,
+                createdAt = now - 3 * hour,
+            ),
+            Publication(
+                id = "p11",
+                title = "Reloj réplica",
+                description = "Reloj tipo marca de lujo, se vende o se cambia.",
+                category = Category.TECHNOLOGY,
+                condition = ItemCondition.NEW,
+                wantedItems = listOf("Dinero"),
+                imageUrls = listOf("https://picsum.photos/seed/trueke-reloj/800/600"),
+                location = Location(4.5240, -75.6920),
+                address = "Centro, Armenia",
+                ownerId = "u3",
+                status = PublicationStatus.REJECTED,
+                rejectionReason = "Sospecha de venta encubierta, no corresponde a un trueque real.",
+                createdAt = now - 72 * hour,
             ),
         )
     }

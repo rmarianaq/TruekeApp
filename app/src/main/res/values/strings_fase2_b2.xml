@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos de la Fase 2 (bloque 2): moderador, edición, estadísticas e insignias -->
+<resources>
+    <!-- Login de moderador -->
+    <string name="login_moderator_access">Acceso moderador</string>
+    <string name="login_error_use_moderator">Esta es una cuenta de moderador. Ingresa por \"Acceso moderador\".</string>
+    <string name="moderator_login_title">Panel de moderación</string>
+    <string name="moderator_login_subtitle">Acceso exclusivo para moderadores de Trueke.</string>
+    <string name="moderator_email">Correo institucional</string>
+    <string name="moderator_login_button">Ingresar</string>
+    <string name="moderator_back_home">Volver al inicio</string>
+    <string name="moderator_error_not_moderator">Esta cuenta no tiene permisos de moderador</string>
+
+    <!-- Panel de moderación -->
+    <string name="moderation_title">Moderación</string>
+    <string name="moderation_subtitle">Hola, %1$s</string>
+    <string name="moderation_tab_pending">Pendientes</string>
+    <string name="moderation_tab_verified">Verificadas</string>
+    <string name="moderation_tab_finished">Finalizados</string>
+    <string name="moderation_tab_rejected">Rechazadas</string>
+    <string name="moderation_published_by">Publicado por %1$s</string>
+    <string name="moderation_reports">%1$d reportes</string>
+    <string name="moderation_verify">Verificar</string>
+    <string name="moderation_reject">Rechazar</string>
+    <string name="moderation_mark_finished">Marcar como finalizado</string>
+    <string name="moderation_finished_label">Trueque finalizado</string>
+    <string name="moderation_reason">Motivo: %1$s</string>
+    <string name="moderation_reject_title">Rechazar publicación</string>
+    <string name="moderation_reject_message">Explica brevemente por qué se rechaza. El usuario verá este motivo y la publicación no se mostrará en el feed público.</string>
+    <string name="moderation_reason_field">Motivo del rechazo</string>
+    <string name="moderation_reject_confirm">Confirmar rechazo</string>
+    <string name="moderation_reason_required">Escribe el motivo del rechazo</string>
+    <string name="moderation_verified_msg">Publicación verificada. El dueño ganó 20 puntos.</string>
+    <string name="moderation_rejected_msg">Publicación rechazada y dueño notificado</string>
+    <string name="moderation_finished_msg">Trueque marcado como finalizado</string>
+    <string name="moderation_empty_title">Nada por revisar aquí</string>
+    <string name="moderation_empty_message">Cuando haya publicaciones en este estado, aparecerán en esta lista.</string>
+
+    <!-- Editar publicación -->
+    <string name="edit_title">Editar publicación</string>
+    <string name="edit_save">Guardar cambios</string>
+    <string name="edit_delete">Eliminar</string>
+    <string name="edit_mark_finished">Marcar trueque como finalizado</string>
+    <string name="edit_reopen">Trueque finalizado · Reabrir</string>
+    <string name="edit_finished_banner">Este trueque quedó marcado como finalizado</string>
+    <string name="edit_delete_title">¿Eliminar esta publicación?</string>
+    <string name="edit_delete_message">Esta acción no se puede deshacer. La publicación dejará de estar visible para otros usuarios.</string>
+    <string name="edit_saved">Cambios guardados</string>
+    <string name="edit_deleted">Publicación eliminada</string>
+    <string name="edit_finished">¡Trueque finalizado!</string>
+    <string name="edit_reopened">Publicación reabierta</string>
+
+    <!-- Mis publicaciones -->
+    <string name="mine_empty_title">Aún no has publicado nada</string>
+    <string name="mine_empty_message">Toca \"Publicar\" en el inicio para ofrecer tu primer objeto.</string>
+
+    <!-- Editar perfil -->
+    <string name="field_bio">Sobre mí</string>
+    <string name="edit_profile_saved">Perfil actualizado</string>
+    <string name="danger_zone">Zona de peligro</string>
+    <string name="danger_zone_message">Eliminar tu cuenta borra tu perfil, publicaciones, propuestas e historial de forma permanente.</string>
+    <string name="delete_account">Eliminar mi cuenta</string>
+    <string name="delete_account_message">Esta acción es permanente: se eliminarán tu perfil, tus publicaciones y tu historial de intercambios. No podrás recuperarlos.</string>
+    <string name="delete_account_confirm">Eliminar cuenta</string>
+
+    <!-- Estadísticas -->
+    <string name="stats_active">Activas</string>
+    <string name="stats_finished">Finalizadas</string>
+    <string name="stats_pending">Por verificar</string>
+    <string name="stats_by_category">Publicaciones por categoría</string>
+    <string name="stats_no_data">Todavía no tienes publicaciones.</string>
+    <string name="stats_current_level">Nivel actual</string>
+    <string name="stats_points">%1$d pts</string>
+    <string name="stats_points_missing">Te faltan %1$d puntos para %2$s</string>
+    <string name="stats_trust_title">Score de confianza</string>
+    <string name="stats_trust_message">Calculado automáticamente con tu comportamiento en la app, no con calificaciones manuales.</string>
+    <string name="trust_responsiveness">Respuesta a propuestas</string>
+    <string name="trust_completion">Trueques finalizados</string>
+    <string name="trust_reputation">Sin reportes</string>
+
+    <!-- Insignias -->
+    <string name="badges_summary">%1$d de %2$d insignias desbloqueadas en tu camino como trueker.</string>
+    <string name="badge_unlocked">Desbloqueada</string>
+    <string name="badge_locked">Bloqueada</string>
+    <string name="badge_first">Primera publicación</string>
+    <string name="badge_first_hint">Publica tu primer objeto</string>
+    <string name="badge_ten_verified">10 publicaciones verificadas</string>
+    <string name="badge_ten_verified_hint">Logra 10 publicaciones aprobadas</string>
+    <string name="badge_featured">Destacada del mes</string>
+    <string name="badge_featured_hint">Una publicación con 3 o más interesados</string>
+    <string name="badge_five_exchanges">5 intercambios completados</string>
+    <string name="badge_five_exchanges_hint">Acepta o concreta 5 trueques</string>
+    <string name="badge_trusted">Colaborador confiable</string>
+    <string name="badge_trusted_hint">Score de confianza de 90 o más</string>
+    <string name="badge_master">Maestro del Trueque</string>
+    <string name="badge_master_hint">Alcanza el nivel más alto</string>
+</resources>

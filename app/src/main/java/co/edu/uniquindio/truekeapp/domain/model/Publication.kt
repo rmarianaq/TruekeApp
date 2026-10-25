@@ -14,6 +14,7 @@ data class Publication(
     val status: PublicationStatus = PublicationStatus.PENDING,
     val rejectionReason: String? = null,    // solo si fue rechazada
     val interestedUserIds: List<String> = emptyList(),  // los "Me interesa"
+    val reportedByUserIds: List<String> = emptyList(),  // reportes de otros usuarios
     val createdAt: Long = System.currentTimeMillis(),
 ) {
     val interestCount: Int get() = interestedUserIds.size

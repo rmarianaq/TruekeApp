@@ -11,5 +11,7 @@ interface PublicationRepository {
     suspend fun findById(id: String): Publication?
     suspend fun save(publication: Publication)
     suspend fun delete(id: String)
+    suspend fun deleteByOwner(ownerId: String)
     suspend fun toggleInterest(publicationId: String, userId: String)
+    suspend fun report(publicationId: String, userId: String)
 }

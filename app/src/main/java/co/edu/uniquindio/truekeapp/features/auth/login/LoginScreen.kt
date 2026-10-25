@@ -55,6 +55,7 @@ fun LoginScreen(
     onRegisterClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
     onLoginSuccess: () -> Unit,
+    onModeratorAccessClick: () -> Unit = {},
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -84,10 +85,11 @@ fun LoginScreen(
         snackbarHostState = snackbarHostState,
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,
-        onLoginClick = viewModel::login,
+        onLoginClick = { viewModel.login() },
         onBackClick = onBackClick,
         onRegisterClick = onRegisterClick,
         onForgotPasswordClick = onForgotPasswordClick,
+        onModeratorAccessClick = onModeratorAccessClick,
     )
 }
 
@@ -102,6 +104,7 @@ private fun LoginContent(
     onBackClick: () -> Unit,
     onRegisterClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
+    onModeratorAccessClick: () -> Unit = {},
 ) {
     LightSystemBarIcons()
     val focusManager = LocalFocusManager.current
@@ -185,6 +188,18 @@ private fun LoginContent(
                     TextButton(onClick = onRegisterClick) {
                         Text(stringResource(R.string.login_register))
                     }
+                }
+
+                // Acceso exclusivo para moderadores (mockup "Login moderador")
+                TextButton(
+                    onClick = onModeratorAccessClick,
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                ) {
+                    Text(
+                        text = stringResource(R.string.login_moderator_access),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
             }
         }

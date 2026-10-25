@@ -10,6 +10,7 @@ data class User(
     val location: Location? = null,
     val points: Int = 0,
     val photoUrl: String? = null,
+    val bio: String = "",
 ) {
     // Propiedad calculada: no se guarda, se deduce de los puntos
     val level: UserLevel get() = UserLevel.fromPoints(points)

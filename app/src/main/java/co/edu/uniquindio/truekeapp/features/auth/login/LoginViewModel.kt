@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import co.edu.uniquindio.truekeapp.R
 import co.edu.uniquindio.truekeapp.core.util.RequestResult
 import co.edu.uniquindio.truekeapp.core.util.Validators
+import co.edu.uniquindio.truekeapp.domain.model.UserRole
 import co.edu.uniquindio.truekeapp.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -43,7 +44,8 @@ class LoginViewModel @Inject constructor(
         _uiState.update { it.copy(password = value, passwordError = null) }
     }
 
-    fun login() {
+    // asModerator = true cuando se usa desde el acceso de moderadores
+    fun login(asModerator: Boolean = false) {
         val state = _uiState.value
 
         // 1. Validar antes de llamar al repositorio
@@ -62,12 +64,17 @@ class LoginViewModel @Inject constructor(
 
             val user = userRepository.login(state.email, state.password)
 
+            // Cada rol entra por su propia puerta, como en los mockups
+            val wrongDoor = user != null && (user.role == UserRole.MODERATOR) != asModerator
+            if (wrongDoor) userRepository.logout()
+
             _uiState.update {
                 it.copy(
-                    result = if (user != null) {
-                        RequestResult.Success(R.string.login_success, listOf(user.name.substringBefore(" ")))
-                    } else {
-                        RequestResult.Failure(R.string.login_error_invalid)
+                    result = when {
+                        user == null -> RequestResult.Failure(R.string.login_error_invalid)
+                        wrongDoor && asModerator -> RequestResult.Failure(R.string.moderator_error_not_moderator)
+                        wrongDoor -> RequestResult.Failure(R.string.login_error_use_moderator)
+                        else -> RequestResult.Success(R.string.login_success, listOf(user.name.substringBefore(" ")))
                     }
                 )
             }

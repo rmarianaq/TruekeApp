@@ -41,6 +41,7 @@ import co.edu.uniquindio.truekeapp.core.component.UserAvatar
 import co.edu.uniquindio.truekeapp.core.component.icon
 import co.edu.uniquindio.truekeapp.core.component.labelRes
 import co.edu.uniquindio.truekeapp.core.theme.TruekeHeart
+import co.edu.uniquindio.truekeapp.core.util.distanceText
 import co.edu.uniquindio.truekeapp.core.util.timeAgo
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
@@ -112,7 +113,11 @@ fun PublicationCard(
             )
             Spacer(Modifier.height(2.dp))
             Text(
-                text = "${stringResource(publication.condition.labelRes)} · ${timeAgo(publication.createdAt)}",
+                text = listOfNotNull(
+                    stringResource(publication.condition.labelRes),
+                    timeAgo(publication.createdAt),
+                    item.distanceKm?.let { distanceText(it) },
+                ).joinToString(" · "),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
