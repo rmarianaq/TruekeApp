@@ -9,12 +9,14 @@ import co.edu.uniquindio.truekeapp.R
 import co.edu.uniquindio.truekeapp.core.util.RequestResult
 import co.edu.uniquindio.truekeapp.domain.model.Category
 import co.edu.uniquindio.truekeapp.domain.model.ItemCondition
+import co.edu.uniquindio.truekeapp.domain.model.Location
 import co.edu.uniquindio.truekeapp.domain.model.Publication
 import co.edu.uniquindio.truekeapp.domain.model.PublicationStatus
 import co.edu.uniquindio.truekeapp.domain.repository.PublicationRepository
+import co.edu.uniquindio.truekeapp.domain.service.ImageStorage
+import co.edu.uniquindio.truekeapp.domain.service.ImageValidator
 import co.edu.uniquindio.truekeapp.navigation.MainRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,6 +36,8 @@ data class EditPublicationUiState(
     val wantedItems: String = "",
     val address: String = "",
     val status: PublicationStatus = PublicationStatus.PENDING,
+    val location: Location? = null,
+    val newImageUri: String? = null,   // solo si el usuario eligió otra foto
     @StringRes val titleError: Int? = null,
     @StringRes val descriptionError: Int? = null,
     @StringRes val wantedError: Int? = null,
@@ -51,6 +55,8 @@ data class EditPublicationUiState(
 class EditPublicationViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val publicationRepository: PublicationRepository,
+    private val imageStorage: ImageStorage,
+    private val imageValidator: ImageValidator,
 ) : ViewModel() {
 
     private val publicationId = savedStateHandle.toRoute<MainRoutes.EditPublication>().publicationId
@@ -72,6 +78,7 @@ class EditPublicationViewModel @Inject constructor(
                         wantedItems = p.wantedItems.joinToString(", "),
                         address = p.address,
                         status = p.status,
+                        location = p.location,
                     )
                 }
             }
@@ -84,6 +91,8 @@ class EditPublicationViewModel @Inject constructor(
     fun onConditionChange(v: ItemCondition) = _uiState.update { it.copy(condition = v) }
     fun onWantedChange(v: String) = _uiState.update { it.copy(wantedItems = v, wantedError = null) }
     fun onAddressChange(v: String) = _uiState.update { it.copy(address = v, addressError = null) }
+    fun onImagePicked(uri: String) = _uiState.update { it.copy(newImageUri = uri) }
+    fun onLocationPicked(v: Location) = _uiState.update { it.copy(location = v) }
 
     fun save() {
         val s = _uiState.value
@@ -104,7 +113,25 @@ class EditPublicationViewModel @Inject constructor(
 
         viewModelScope.launch {
             _uiState.update { it.copy(result = RequestResult.Loading) }
-            delay(800)
+
+            // Si eligió otra foto: se sube a Cloudinary y la IA la valida (igual que al crear)
+            var imageUrls = original.imageUrls
+            s.newImageUri?.let { uri ->
+                val url = imageStorage.upload(uri)
+                if (url == null) {
+                    _uiState.update { it.copy(result = RequestResult.Failure(R.string.error_image_upload)) }
+                    return@launch
+                }
+                val validation = imageValidator.validate(url, s.title.trim(), s.category)
+                if (validation != null && !validation.relevant) {
+                    _uiState.update {
+                        it.copy(result = RequestResult.Failure(R.string.error_image_not_relevant, listOf(validation.reason)))
+                    }
+                    return@launch
+                }
+                imageUrls = listOf(url)
+            }
+
             publicationRepository.save(
                 original.copy(
                     title = s.title.trim(),
@@ -113,6 +140,8 @@ class EditPublicationViewModel @Inject constructor(
                     condition = s.condition,
                     wantedItems = wanted,
                     address = s.address.trim(),
+                    imageUrls = imageUrls,
+                    location = s.location ?: original.location,
                     status = s.status,
                 )
             )

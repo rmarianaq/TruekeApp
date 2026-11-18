@@ -136,7 +136,7 @@
 
     <string name="create_title">Nueva publicación</string>
     <string name="create_subtitle">Cuéntale a la comunidad qué quieres intercambiar.</string>
-    <string name="create_photo_hint">Foto de ejemplo. La carga de imágenes llega en la Fase 3.</string>
+    <string name="create_photo_hint">Una IA revisa que la foto corresponda a lo que publicas.</string>
     <string name="field_title">Título del objeto</string>
     <string name="field_description">Descripción</string>
     <string name="field_wanted">¿Qué quieres a cambio? (separa con comas)</string>

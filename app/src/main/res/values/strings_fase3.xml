@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos de la Fase 3: fotos en la nube, validación con IA y mapas -->
+<resources>
+    <!-- Fotos -->
+    <string name="photo_pick">Elegir foto</string>
+    <string name="photo_change">Cambiar foto</string>
+    <string name="photo_empty">Agrega una foto real de tu objeto</string>
+    <string name="error_image_required">Elige una foto del objeto</string>
+    <string name="error_image_upload">No se pudo subir la foto. Revisa tu conexión e intenta de nuevo.</string>
+    <string name="error_image_not_relevant">La IA no aprobó la foto: %1$s</string>
+
+    <!-- Mapas -->
+    <string name="map_unavailable">Mapa no disponible</string>
+    <string name="map_my_location">Mi ubicación</string>
+    <string name="map_pick_title">Punto de intercambio en el mapa</string>
+    <string name="map_pick_hint">Toca el mapa para marcar dónde quieres hacer el trueque.</string>
+</resources>

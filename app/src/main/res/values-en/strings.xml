@@ -135,7 +135,7 @@
 
     <string name="create_title">New post</string>
     <string name="create_subtitle">Tell the community what you want to swap.</string>
-    <string name="create_photo_hint">Sample photo. Image upload arrives in Phase 3.</string>
+    <string name="create_photo_hint">An AI checks that the photo matches what you post.</string>
     <string name="field_title">Item title</string>
     <string name="field_description">Description</string>
     <string name="field_wanted">What do you want in exchange? (separate with commas)</string>

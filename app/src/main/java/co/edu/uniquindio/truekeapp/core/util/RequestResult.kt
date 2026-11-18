@@ -11,5 +11,8 @@ sealed class RequestResult {
         val args: List<Any> = emptyList(),
     ) : RequestResult()
 
-    data class Failure(@StringRes val messageRes: Int) : RequestResult()
+    data class Failure(
+        @StringRes val messageRes: Int,
+        val args: List<Any> = emptyList(),
+    ) : RequestResult()
 }

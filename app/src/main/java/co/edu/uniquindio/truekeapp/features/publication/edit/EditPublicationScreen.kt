@@ -1,6 +1,5 @@
 package co.edu.uniquindio.truekeapp.features.publication.edit
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -51,14 +49,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.edu.uniquindio.truekeapp.R
+import co.edu.uniquindio.truekeapp.core.component.LocationPickerField
+import co.edu.uniquindio.truekeapp.core.component.PhotoPickerField
 import co.edu.uniquindio.truekeapp.core.component.TruekeSnackbarHost
 import co.edu.uniquindio.truekeapp.core.component.TruekeTextField
 import co.edu.uniquindio.truekeapp.core.component.TruekeTopBar
@@ -68,7 +66,6 @@ import co.edu.uniquindio.truekeapp.core.component.showTruekeSnackbar
 import co.edu.uniquindio.truekeapp.core.util.RequestResult
 import co.edu.uniquindio.truekeapp.domain.model.Category
 import co.edu.uniquindio.truekeapp.domain.model.ItemCondition
-import coil3.compose.AsyncImage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -96,6 +93,13 @@ fun EditPublicationScreen(
                     else -> Unit
                 }
                 if (uiState.lastAction != EditAction.STATUS_CHANGED) viewModel.resetResult()
+            }
+            is RequestResult.Failure -> {
+                snackbarHostState.showTruekeSnackbar(
+                    context.getString(result.messageRes, *result.args.toTypedArray()),
+                    isError = true,
+                )
+                viewModel.resetResult()
             }
             else -> Unit
         }
@@ -192,15 +196,12 @@ fun EditPublicationScreen(
                 Spacer(Modifier.height(6.dp))
             }
 
-            AsyncImage(
-                model = uiState.original?.imageUrls?.firstOrNull(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(16f / 9f)
-                    .clip(MaterialTheme.shapes.large)
-                    .background(MaterialTheme.colorScheme.surfaceVariant),
+            // Foto actual (Cloudinary) o la nueva que se elija; si cambia, se sube y la valida la IA
+            PhotoPickerField(
+                image = uiState.newImageUri ?: uiState.original?.imageUrls?.firstOrNull(),
+                onImagePicked = viewModel::onImagePicked,
+                errorRes = null,
+                enabled = enabled,
             )
             Spacer(Modifier.height(8.dp))
 
@@ -271,6 +272,16 @@ fun EditPublicationScreen(
                 errorRes = uiState.addressError,
                 enabled = enabled,
             )
+
+            // Punto de intercambio en el mapa (Mapbox)
+            Spacer(Modifier.height(8.dp))
+            if (uiState.original != null) {
+                LocationPickerField(
+                    location = uiState.location,
+                    initialCenter = uiState.location,
+                    onLocationPicked = viewModel::onLocationPicked,
+                )
+            }
         }
     }
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Phase 3 texts: cloud photos, AI validation and maps -->
+<resources>
+    <!-- Photos -->
+    <string name="photo_pick">Choose photo</string>
+    <string name="photo_change">Change photo</string>
+    <string name="photo_empty">Add a real photo of your item</string>
+    <string name="error_image_required">Choose a photo of the item</string>
+    <string name="error_image_upload">The photo could not be uploaded. Check your connection and try again.</string>
+    <string name="error_image_not_relevant">The AI did not approve the photo: %1$s</string>
+
+    <!-- Maps -->
+    <string name="map_unavailable">Map not available</string>
+    <string name="map_my_location">My location</string>
+    <string name="map_pick_title">Exchange point on the map</string>
+    <string name="map_pick_hint">Tap the map to mark where you want to make the swap.</string>
+</resources>

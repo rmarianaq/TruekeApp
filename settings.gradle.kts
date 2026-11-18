@@ -19,6 +19,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Repositorio de Mapbox (guía 16)
+        maven { url = uri("https://api.mapbox.com/downloads/v2/releases/maven") }
     }
 }
 

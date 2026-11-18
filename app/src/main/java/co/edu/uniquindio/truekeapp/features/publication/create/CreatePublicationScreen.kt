@@ -1,13 +1,11 @@
 package co.edu.uniquindio.truekeapp.features.publication.create
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,8 +33,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -46,6 +42,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.edu.uniquindio.truekeapp.R
 import co.edu.uniquindio.truekeapp.core.component.AuthHeader
 import co.edu.uniquindio.truekeapp.core.component.LightSystemBarIcons
+import co.edu.uniquindio.truekeapp.core.component.LocationPickerField
+import co.edu.uniquindio.truekeapp.core.component.PhotoPickerField
 import co.edu.uniquindio.truekeapp.core.component.TruekePrimaryButton
 import co.edu.uniquindio.truekeapp.core.component.TruekeSnackbarHost
 import co.edu.uniquindio.truekeapp.core.component.TruekeTextField
@@ -55,7 +53,6 @@ import co.edu.uniquindio.truekeapp.core.component.showTruekeSnackbar
 import co.edu.uniquindio.truekeapp.core.util.RequestResult
 import co.edu.uniquindio.truekeapp.domain.model.Category
 import co.edu.uniquindio.truekeapp.domain.model.ItemCondition
-import coil3.compose.AsyncImage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -78,6 +75,13 @@ fun CreatePublicationScreen(
             launch { snackbarHostState.showTruekeSnackbar(context.getString(result.messageRes), isError = false) }
             delay(1800)
             onPublished()
+            viewModel.resetResult()
+        } else if (result is RequestResult.Failure) {
+            // Error rojo: no se pudo subir la foto o la IA no la aprobó (con el motivo)
+            snackbarHostState.showTruekeSnackbar(
+                context.getString(result.messageRes, *result.args.toTypedArray()),
+                isError = true,
+            )
             viewModel.resetResult()
         }
     }
@@ -106,16 +110,12 @@ fun CreatePublicationScreen(
                 modifier = Modifier.padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                // Vista previa de la foto
-                AsyncImage(
-                    model = uiState.imageUrl,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(16f / 10f)
-                        .clip(MaterialTheme.shapes.large)
-                        .background(MaterialTheme.colorScheme.surfaceVariant),
+                // Foto real del objeto: Photo Picker + subida a Cloudinary + validación con IA
+                PhotoPickerField(
+                    image = uiState.imageUri,
+                    onImagePicked = viewModel::onImagePicked,
+                    errorRes = uiState.imageError,
+                    enabled = enabled,
                 )
                 Text(
                     text = stringResource(R.string.create_photo_hint),
@@ -199,6 +199,14 @@ fun CreatePublicationScreen(
                     errorRes = uiState.addressError,
                     onImeAction = { focusManager.clearFocus() },
                     enabled = enabled,
+                )
+
+                // Punto de intercambio en el mapa (Mapbox)
+                Spacer(Modifier.height(8.dp))
+                LocationPickerField(
+                    location = uiState.location,
+                    initialCenter = viewModel.userLocation,
+                    onLocationPicked = viewModel::onLocationPicked,
                 )
 
                 Spacer(Modifier.height(12.dp))

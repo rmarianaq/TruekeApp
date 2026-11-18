@@ -68,6 +68,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.edu.uniquindio.truekeapp.R
+import co.edu.uniquindio.truekeapp.core.component.MapBox
+import co.edu.uniquindio.truekeapp.core.component.toPoint
 import co.edu.uniquindio.truekeapp.core.component.LightSystemBarIcons
 import co.edu.uniquindio.truekeapp.core.component.TrustBadge
 import co.edu.uniquindio.truekeapp.core.component.TruekeSnackbarHost
@@ -325,6 +327,19 @@ private fun DetailBody(
                 Spacer(Modifier.width(12.dp))
                 Text(text = publication.address, style = MaterialTheme.typography.bodyLarge)
             }
+
+            // Mapa pequeño de solo lectura con el punto de intercambio (guía 16)
+            Spacer(Modifier.height(12.dp))
+            MapBox(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(160.dp)
+                    .clip(MaterialTheme.shapes.large),
+                center = publication.location.toPoint(),
+                zoom = 15.5,
+                selectedPoint = publication.location.toPoint(),
+                interactive = false,
+            )
         }
     }
 }
