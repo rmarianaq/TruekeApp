@@ -1,10 +1,10 @@
 package co.edu.uniquindio.truekeapp.di
 
-import co.edu.uniquindio.truekeapp.data.repository.memory.CommentRepositoryImpl
-import co.edu.uniquindio.truekeapp.data.repository.memory.NotificationRepositoryImpl
-import co.edu.uniquindio.truekeapp.data.repository.memory.ProposalRepositoryImpl
-import co.edu.uniquindio.truekeapp.data.repository.memory.PublicationRepositoryImpl
-import co.edu.uniquindio.truekeapp.data.repository.memory.UserRepositoryImpl
+import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebaseCommentRepositoryImpl
+import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebaseNotificationRepositoryImpl
+import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebaseProposalRepositoryImpl
+import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebasePublicationRepositoryImpl
+import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebaseUserRepositoryImpl
 import co.edu.uniquindio.truekeapp.domain.repository.CommentRepository
 import co.edu.uniquindio.truekeapp.domain.repository.NotificationRepository
 import co.edu.uniquindio.truekeapp.domain.repository.ProposalRepository
@@ -16,27 +16,29 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+// Fase 3: los repositorios en memoria se cambian por los de Firebase.
+// Las pantallas y ViewModels no cambian porque dependen de las interfaces.
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
+    abstract fun bindUserRepository(impl: FirebaseUserRepositoryImpl): UserRepository
 
     @Binds
     @Singleton
-    abstract fun bindPublicationRepository(impl: PublicationRepositoryImpl): PublicationRepository
+    abstract fun bindPublicationRepository(impl: FirebasePublicationRepositoryImpl): PublicationRepository
 
     @Binds
     @Singleton
-    abstract fun bindCommentRepository(impl: CommentRepositoryImpl): CommentRepository
+    abstract fun bindCommentRepository(impl: FirebaseCommentRepositoryImpl): CommentRepository
 
     @Binds
     @Singleton
-    abstract fun bindNotificationRepository(impl: NotificationRepositoryImpl): NotificationRepository
+    abstract fun bindNotificationRepository(impl: FirebaseNotificationRepositoryImpl): NotificationRepository
 
     @Binds
     @Singleton
-    abstract fun bindProposalRepository(impl: ProposalRepositoryImpl): ProposalRepository
+    abstract fun bindProposalRepository(impl: FirebaseProposalRepositoryImpl): ProposalRepository
 }

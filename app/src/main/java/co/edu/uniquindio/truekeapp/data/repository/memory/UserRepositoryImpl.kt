@@ -59,6 +59,9 @@ class UserRepositoryImpl @Inject constructor() : UserRepository {
     private val _currentUser = MutableStateFlow<User?>(null)
     override val currentUser: StateFlow<User?> = _currentUser.asStateFlow()
 
+    // En memoria no hay sesión guardada
+    override val sessionRestored: StateFlow<Boolean> = MutableStateFlow(true).asStateFlow()
+
     override suspend fun login(email: String, password: String): User? {
         val user = _users.value.find {
             it.email.equals(email.trim(), ignoreCase = true) && it.password == password

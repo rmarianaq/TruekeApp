@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "636422553407",
+    "project_id": "truekeapp-cd4b6",
+    "storage_bucket": "truekeapp-cd4b6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636422553407:android:9e8d7f11bc36d1fbc5dd8a",
+        "android_client_info": {
+          "package_name": "co.edu.uniquindio.truekeapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWvxyf9wdQ7ZGhheudLgmtRzwAeOeYcUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

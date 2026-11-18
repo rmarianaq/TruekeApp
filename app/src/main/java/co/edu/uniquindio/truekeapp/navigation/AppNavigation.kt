@@ -36,12 +36,12 @@ import co.edu.uniquindio.truekeapp.features.suggestions.SuggestionsScreen
 private const val TRANSITION_MS = 350
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(startDestination: Any = MainRoutes.Onboarding) {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
-        startDestination = MainRoutes.Onboarding,
+        startDestination = startDestination,
         enterTransition = {
             slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(TRANSITION_MS))
         },
