@@ -41,7 +41,7 @@ class OpenRouterImageValidator @Inject constructor(
         """.trimIndent()
 
         val request = ChatRequestDto(
-            model = BuildConfig.OPENROUTER_MODEL,
+            models = (listOf(BuildConfig.OPENROUTER_MODEL) + FALLBACK_MODELS).distinct(),
             messages = listOf(
                 ChatMessageDto(
                     role = "user",
@@ -65,5 +65,11 @@ class OpenRouterImageValidator @Inject constructor(
 
     private companion object {
         const val TAG = "OpenRouterValidator"
+
+        // Modelos gratuitos con visión de respaldo (los :free a veces se saturan)
+        val FALLBACK_MODELS = listOf(
+            "google/gemma-4-31b-it:free",
+            "google/gemma-4-26b-a4b-it:free",
+        )
     }
 }

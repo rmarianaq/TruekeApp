@@ -8,7 +8,8 @@ import com.google.gson.annotations.SerializedName
 
 @Keep
 data class ChatRequestDto(
-    val model: String,
+    // Modelos en orden de preferencia: si el primero está saturado, OpenRouter prueba el siguiente
+    val models: List<String>,
     val messages: List<ChatMessageDto>,
     val temperature: Double = 0.0,
 )

@@ -41,7 +41,7 @@ android {
         buildConfigField("String", "CLOUDINARY_CLOUD_NAME", buildConfigString("CLOUDINARY_CLOUD_NAME"))
         buildConfigField("String", "CLOUDINARY_UPLOAD_PRESET", buildConfigString("CLOUDINARY_UPLOAD_PRESET", "trueke_unsigned"))
         buildConfigField("String", "OPENROUTER_API_KEY", buildConfigString("OPENROUTER_API_KEY"))
-        buildConfigField("String", "OPENROUTER_MODEL", buildConfigString("OPENROUTER_MODEL", "google/gemma-4-31b-it:free"))
+        buildConfigField("String", "OPENROUTER_MODEL", buildConfigString("OPENROUTER_MODEL", "inclusionai/ling-3.2-flash:free"))
 
         // Solo las arquitecturas necesarias para que el APK no pese tanto (guía 16)
         ndk {
