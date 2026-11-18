@@ -1,0 +1,378 @@
+<resources>
+    <string name="app_name">Trueke</string>
+    <string name="logo_content_description">Trueke logo</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Give your things a second life</string>
+    <string name="onboarding_description">Trueke is the community where you swap what you no longer use for what you actually need, close to you and without spending money.</string>
+    <string name="onboarding_feature_publish">Post what you no longer use</string>
+    <string name="onboarding_feature_find">Find what you need near you</string>
+    <string name="onboarding_feature_exchange">Swap without money and earn points</string>
+    <string name="onboarding_create_account">Create account</string>
+    <string name="onboarding_login">I already have an account</string>
+
+    <!-- Common actions -->
+    <string name="action_back">Back</string>
+    <string name="action_show_password">Show password</string>
+    <string name="action_hide_password">Hide password</string>
+
+    <!-- Fields -->
+    <string name="field_email">Email</string>
+    <string name="field_password">Password</string>
+
+    <!-- Validation errors -->
+    <string name="error_email_required">Enter your email</string>
+    <string name="error_email_invalid">The email format is not valid</string>
+    <string name="error_password_required">Enter your password</string>
+    <string name="error_password_short">The password must have at least 8 characters</string>
+
+    <!-- Login -->
+    <string name="login_title">Welcome back!</string>
+    <string name="login_subtitle">Sign in to keep swapping.</string>
+    <string name="login_forgot_password">Forgot your password?</string>
+    <string name="login_button">Sign in</string>
+    <string name="login_no_account">Don\'t have an account?</string>
+    <string name="login_register">Sign up</string>
+    <string name="login_success">Good to see you, %1$s!</string>
+    <string name="login_error_invalid">Incorrect email or password</string>
+
+    <!-- Register fields and errors -->
+    <string name="field_name">Full name</string>
+    <string name="field_confirm_password">Confirm password</string>
+    <string name="field_address">Address (neighborhood and city)</string>
+    <string name="error_name_required">Enter your full name</string>
+    <string name="error_confirm_required">Confirm your password</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="error_address_required">Enter your address</string>
+
+    <!-- Password strength -->
+    <string name="password_strength_label">Strength: %1$s</string>
+    <string name="password_strength_weak">weak</string>
+    <string name="password_strength_medium">medium</string>
+    <string name="password_strength_strong">strong</string>
+
+    <!-- Register -->
+    <string name="register_title">Create your account</string>
+    <string name="register_subtitle">Join the community and start swapping.</string>
+    <string name="register_terms">I accept the terms and conditions and the processing of my personal data.</string>
+    <string name="register_terms_error">You must accept the terms to continue</string>
+    <string name="register_button">Create account</string>
+    <string name="register_have_account">Already have an account?</string>
+    <string name="register_login">Sign in</string>
+    <string name="register_success">Account created, %1$s! You can now sign in.</string>
+    <string name="register_error_email_taken">An account with that email already exists</string>
+
+    <!-- Recover password -->
+    <string name="recover_title">Forgot your password?</string>
+    <string name="recover_subtitle">Don\'t worry. We\'ll send a link to your email so you can create a new one.</string>
+    <string name="recover_button">Send link</string>
+    <string name="recover_success">Link sent. Check your inbox.</string>
+    <string name="recover_sent_title">Check your email!</string>
+    <string name="recover_sent_message">If there is an account linked to %1$s, you will receive a link to reset your password. Also check your spam folder.</string>
+    <string name="recover_back_to_login">Back to sign in</string>
+    <string name="recover_resend">Resend link</string>
+    <string name="recover_resend_in">Resend in %1$d s</string>
+    <string name="recover_use_other_email">Use another email</string>
+
+    <!-- Actions -->
+    <string name="action_clear">Clear</string>
+    <string name="action_logout">Sign out</string>
+    <string name="action_interest">I\'m interested</string>
+
+    <!-- Categories -->
+    <string name="category_all">All</string>
+    <string name="category_technology">Technology</string>
+    <string name="category_books">Books</string>
+    <string name="category_clothing">Clothing</string>
+    <string name="category_home">Home</string>
+    <string name="category_sports">Sports</string>
+    <string name="category_toys">Toys</string>
+    <string name="category_other">Other</string>
+
+    <!-- Item condition -->
+    <string name="condition_new">New</string>
+    <string name="condition_like_new">Like new</string>
+    <string name="condition_good">Good condition</string>
+    <string name="condition_used">Used</string>
+
+    <!-- Time -->
+    <string name="time_just_now">Just now</string>
+    <string name="time_minutes_ago">%1$d min ago</string>
+    <string name="time_hours_ago">%1$d h ago</string>
+    <string name="time_days_ago">%1$d d ago</string>
+
+    <!-- Feed -->
+    <string name="feed_greeting">Hi, %1$s</string>
+    <string name="feed_subtitle">What do you want to swap today?</string>
+    <string name="feed_search">Search items…</string>
+    <string name="feed_publish">Post</string>
+    <string name="feed_wants">Looking for: %1$s</string>
+    <string name="feed_mine">Yours</string>
+    <string name="feed_empty_title">We couldn\'t find anything here</string>
+    <string name="feed_empty_message">Try another search or category.</string>
+    <plurals name="feed_interested">
+        <item quantity="one">%d interested</item>
+        <item quantity="other">%d interested</item>
+    </plurals>
+
+    <!-- Levels -->
+    <string name="level_novato">Rookie</string>
+    <string name="level_intercambiador">Swapper</string>
+    <string name="level_negociante">Trader</string>
+    <string name="level_maestro">Barter Master</string>
+
+    <!-- Detail -->
+    <string name="detail_description">Description</string>
+    <string name="detail_wants">Looking for in exchange</string>
+    <string name="detail_location">Exchange point</string>
+    <string name="detail_owner_level">%1$s · %2$d points</string>
+    <string name="detail_interest_hint">in this item</string>
+    <string name="detail_interest_remove">Not interested anymore</string>
+    <string name="detail_interest_added">Added to your interests</string>
+    <string name="detail_interest_removed">Removed from your interests</string>
+    <string name="detail_mine">This is your post</string>
+    <string name="detail_not_found">This post is no longer available</string>
+
+    <string name="create_title">New post</string>
+    <string name="create_subtitle">Tell the community what you want to swap.</string>
+    <string name="create_photo_hint">Sample photo. Image upload arrives in Phase 3.</string>
+    <string name="field_title">Item title</string>
+    <string name="field_description">Description</string>
+    <string name="field_wanted">What do you want in exchange? (separate with commas)</string>
+    <string name="create_category">Category</string>
+    <string name="create_condition">Item condition</string>
+    <string name="create_button">Post item</string>
+    <string name="create_success">Done! Your post is pending review.</string>
+    <string name="error_title_required">Enter a title (at least 5 characters)</string>
+    <string name="error_description_required">Describe your item (at least 15 characters)</string>
+    <string name="error_category_required">Choose a category</string>
+    <string name="error_wanted_required">Enter at least one item you want in exchange</string>
+
+    <!-- ===== Phase 2 (block 1) ===== -->
+    <!-- Common -->
+    <string name="action_cancel">Cancel</string>
+    <string name="action_see_all">See all</string>
+    <string name="distance_km_decimal">%1$.1f km</string>
+    <string name="distance_km">%1$d km</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_accepted">Accepted</string>
+    <string name="status_rejected">Rejected</string>
+    <string name="trust_badge">Trust %1$d%%</string>
+
+    <!-- Bottom bar -->
+    <string name="tab_home">Home</string>
+    <string name="tab_proposals">Proposals</string>
+    <string name="tab_profile">Profile</string>
+
+    <!-- Detail -->
+    <string name="detail_comments">Comments (%1$d)</string>
+    <string name="detail_edit">Edit post</string>
+    <string name="detail_propose">Propose a swap</string>
+    <string name="detail_proposal_sent">Proposal sent</string>
+    <string name="detail_report">Report</string>
+    <string name="detail_reported">Reported</string>
+    <string name="detail_report_title">Report this post?</string>
+    <string name="detail_report_message">A moderator will check whether it breaks the community rules. Reports affect the owner\'s trust score.</string>
+    <string name="detail_report_success">Thanks. A moderator will review this post.</string>
+
+    <!-- Propose swap -->
+    <string name="propose_title">Propose a swap</string>
+    <string name="propose_message">Tell the owner what you offer in exchange. They will get a notification with your proposal.</string>
+    <string name="propose_field">What do you offer in exchange?</string>
+    <string name="propose_send">Send proposal</string>
+    <string name="propose_success">Proposal sent! We\'ll let you know when they reply.</string>
+    <string name="propose_error_empty">Write what you offer in exchange</string>
+
+    <!-- Comments -->
+    <string name="comments_title">Comments</string>
+    <string name="comments_about">About: %1$s</string>
+    <string name="comments_placeholder">Write a comment…</string>
+    <string name="comments_send">Send comment</string>
+    <string name="comments_owner">Owner</string>
+    <string name="comments_success">Comment posted</string>
+    <string name="comments_error_empty">Write something before sending</string>
+    <string name="comments_empty_title">No comments yet</string>
+    <string name="comments_empty_message">Be the first to ask about this item.</string>
+
+    <!-- Notifications -->
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_unread">%1$d unread</string>
+    <string name="notifications_mark_all">Mark all as read</string>
+    <string name="notifications_mark_read">Mark as read</string>
+    <string name="notifications_mark_unread">Mark as unread</string>
+    <string name="notifications_empty_title">You\'re all caught up</string>
+    <string name="notifications_empty_message">Here you will see comments, proposals and moderation notices.</string>
+    <string name="notif_comment_title">New comment</string>
+    <string name="notif_comment_message">%1$s commented on your post \"%2$s\"</string>
+    <string name="notif_proposal_title">New proposal received</string>
+    <string name="notif_proposal_message">%1$s wants to swap for your \"%2$s\"</string>
+    <string name="notif_accepted_title">Proposal accepted</string>
+    <string name="notif_accepted_message">%1$s accepted your proposal for \"%2$s\"</string>
+    <string name="notif_rejected_title">Proposal rejected</string>
+    <string name="notif_rejected_message">%1$s rejected your proposal for \"%2$s\"</string>
+    <string name="notif_verified_title">Post verified</string>
+    <string name="notif_verified_message">Your post \"%1$s\" was verified by a moderator</string>
+    <string name="notif_pub_rejected_title">Post rejected</string>
+    <string name="notif_pub_rejected_message">Your post \"%1$s\" was rejected. Check the reason in My posts.</string>
+
+    <!-- Profile -->
+    <string name="profile_level">Level: %1$s</string>
+    <string name="profile_next_level">%1$d / %2$d points to reach %3$s</string>
+    <string name="profile_max_level">You reached the highest level!</string>
+    <string name="profile_publications">Posts</string>
+    <string name="profile_exchanges">Swaps</string>
+    <string name="profile_my_publications">My posts</string>
+    <string name="edit_profile_title">Edit profile</string>
+    <string name="statistics_title">Statistics</string>
+    <string name="badges_title">Badges</string>
+    <string name="logout_title">Sign out?</string>
+    <string name="logout_message">You will have to enter your email and password again.</string>
+
+    <!-- Interested -->
+    <string name="favorites_title">I\'m interested</string>
+    <string name="favorites_intro">Posts you marked as \"I\'m interested\".</string>
+    <string name="favorites_empty_title">Nothing marked yet</string>
+    <string name="favorites_empty_message">Tap the heart on a post to save it here.</string>
+
+    <!-- Proposals -->
+    <string name="proposals_title">My proposals</string>
+    <string name="proposals_subtitle">Swaps you receive and send</string>
+    <string name="proposals_received">Received (%1$d)</string>
+    <string name="proposals_sent">Sent (%1$d)</string>
+    <string name="proposals_offers">%1$s offers: %2$s</string>
+    <string name="proposals_you_offer">To %1$s · you offer: %2$s</string>
+    <string name="proposals_accept">Accept</string>
+    <string name="proposals_reject">Reject</string>
+    <string name="proposals_chain">Chain</string>
+    <string name="proposals_accepted_msg">Swap accepted! You both earned 50 points.</string>
+    <string name="proposals_rejected_msg">Proposal rejected</string>
+    <string name="proposals_empty_title">No proposals here</string>
+    <string name="proposals_empty_message">When you send or receive a swap, it will show up in this list.</string>
+
+    <!-- Innovative feature: Suggestions -->
+    <string name="suggestions_title">Suggestions for you</string>
+    <string name="suggestions_carousel_title">Suggested for you</string>
+    <string name="suggestions_intro">We built this list combining your favorite categories, the posts you marked as \"I\'m interested\" and what is moving near you.</string>
+    <string name="suggestions_algorithm">Similarity-based recommendation: categories, popularity and proximity</string>
+    <string name="suggestions_empty_title">No suggestions yet</string>
+    <string name="suggestions_empty_message">Mark posts as \"I\'m interested\" so we can learn what you like.</string>
+    <string name="reason_category">Because you like %1$s</string>
+    <string name="reason_popular">Highly requested in your area</string>
+    <string name="reason_nearby">Near you</string>
+    <string name="reason_new">New on Trueke</string>
+
+    <!-- Innovative feature: Chain match -->
+    <string name="chain_title">Chain match</string>
+    <string name="chain_banner_title">Chain match found!</string>
+    <string name="chain_banner_message">%1$d people can swap with each other. Tap to see the cycle.</string>
+    <string name="chain_card_title">We found a chain swap for you</string>
+    <string name="chain_card_message">Sometimes the perfect swap is not 1 to 1. You, %1$s form a closed cycle: everyone gets something they want without anyone using money.</string>
+    <string name="chain_algorithm">Algorithm: cycle detection in the interest graph (multilateral matching)</string>
+    <string name="chain_how_title">How the cycle closes</string>
+    <string name="chain_you">You</string>
+    <string name="chain_you_give">You give</string>
+    <string name="chain_gives">%1$s gives</string>
+    <string name="chain_receives">→ gets %1$s</string>
+    <string name="chain_reserved">The %1$d items stay reserved while everyone confirms.</string>
+    <string name="chain_propose">Propose chain swap</string>
+    <string name="chain_already_proposed">Chain swap proposed</string>
+    <string name="chain_not_now">Not now</string>
+    <string name="chain_proposed">Done! We sent the proposal to the other participants.</string>
+    <string name="chain_empty_title">No cycle for now</string>
+    <string name="chain_empty_message">Mark more posts as \"I\'m interested\": when your interests form a cycle with other people, we\'ll let you know.</string>
+
+    <!-- ===== Phase 2 (block 2) ===== -->
+    <!-- Moderator login -->
+    <string name="login_moderator_access">Moderator access</string>
+    <string name="login_error_use_moderator">This is a moderator account. Sign in through \"Moderator access\".</string>
+    <string name="moderator_login_title">Moderation panel</string>
+    <string name="moderator_login_subtitle">Exclusive access for Trueke moderators.</string>
+    <string name="moderator_email">Institutional email</string>
+    <string name="moderator_login_button">Sign in</string>
+    <string name="moderator_back_home">Back to home</string>
+    <string name="moderator_error_not_moderator">This account does not have moderator permissions</string>
+
+    <!-- Moderation panel -->
+    <string name="moderation_title">Moderation</string>
+    <string name="moderation_subtitle">Hi, %1$s</string>
+    <string name="moderation_tab_pending">Pending</string>
+    <string name="moderation_tab_verified">Verified</string>
+    <string name="moderation_tab_finished">Finished</string>
+    <string name="moderation_tab_rejected">Rejected</string>
+    <string name="moderation_published_by">Posted by %1$s</string>
+    <string name="moderation_reports">%1$d reports</string>
+    <string name="moderation_verify">Verify</string>
+    <string name="moderation_reject">Reject</string>
+    <string name="moderation_mark_finished">Mark as finished</string>
+    <string name="moderation_finished_label">Swap finished</string>
+    <string name="moderation_reason">Reason: %1$s</string>
+    <string name="moderation_reject_title">Reject post</string>
+    <string name="moderation_reject_message">Briefly explain why it is rejected. The user will see this reason and the post will not appear in the public feed.</string>
+    <string name="moderation_reason_field">Rejection reason</string>
+    <string name="moderation_reject_confirm">Confirm rejection</string>
+    <string name="moderation_reason_required">Write the rejection reason</string>
+    <string name="moderation_verified_msg">Post verified. The owner earned 20 points.</string>
+    <string name="moderation_rejected_msg">Post rejected and owner notified</string>
+    <string name="moderation_finished_msg">Swap marked as finished</string>
+    <string name="moderation_empty_title">Nothing to review here</string>
+    <string name="moderation_empty_message">When there are posts in this state, they will show up in this list.</string>
+
+    <!-- Edit post -->
+    <string name="edit_title">Edit post</string>
+    <string name="edit_save">Save changes</string>
+    <string name="edit_delete">Delete</string>
+    <string name="edit_mark_finished">Mark swap as finished</string>
+    <string name="edit_reopen">Swap finished · Reopen</string>
+    <string name="edit_finished_banner">This swap was marked as finished</string>
+    <string name="edit_delete_title">Delete this post?</string>
+    <string name="edit_delete_message">This action cannot be undone. The post will no longer be visible to other users.</string>
+    <string name="edit_saved">Changes saved</string>
+    <string name="edit_deleted">Post deleted</string>
+    <string name="edit_finished">Swap finished!</string>
+    <string name="edit_reopened">Post reopened</string>
+
+    <!-- My posts -->
+    <string name="mine_empty_title">You haven\'t posted anything yet</string>
+    <string name="mine_empty_message">Tap \"Post\" on the home screen to offer your first item.</string>
+
+    <!-- Edit profile -->
+    <string name="field_bio">About me</string>
+    <string name="edit_profile_saved">Profile updated</string>
+    <string name="danger_zone">Danger zone</string>
+    <string name="danger_zone_message">Deleting your account permanently erases your profile, posts, proposals and history.</string>
+    <string name="delete_account">Delete my account</string>
+    <string name="delete_account_message">This action is permanent: your profile, posts and swap history will be deleted. You won\'t be able to recover them.</string>
+    <string name="delete_account_confirm">Delete account</string>
+
+    <!-- Statistics -->
+    <string name="stats_active">Active</string>
+    <string name="stats_finished">Finished</string>
+    <string name="stats_pending">To verify</string>
+    <string name="stats_by_category">Posts by category</string>
+    <string name="stats_no_data">You don\'t have any posts yet.</string>
+    <string name="stats_current_level">Current level</string>
+    <string name="stats_points">%1$d pts</string>
+    <string name="stats_points_missing">%1$d points left to reach %2$s</string>
+    <string name="stats_trust_title">Trust score</string>
+    <string name="stats_trust_message">Calculated automatically from your behavior in the app, not from manual ratings.</string>
+    <string name="trust_responsiveness">Response to proposals</string>
+    <string name="trust_completion">Finished swaps</string>
+    <string name="trust_reputation">No reports</string>
+
+    <!-- Badges -->
+    <string name="badges_summary">%1$d of %2$d badges unlocked on your journey as a trueker.</string>
+    <string name="badge_unlocked">Unlocked</string>
+    <string name="badge_locked">Locked</string>
+    <string name="badge_first">First post</string>
+    <string name="badge_first_hint">Post your first item</string>
+    <string name="badge_ten_verified">10 verified posts</string>
+    <string name="badge_ten_verified_hint">Get 10 posts approved</string>
+    <string name="badge_featured">Featured of the month</string>
+    <string name="badge_featured_hint">A post with 3 or more interested people</string>
+    <string name="badge_five_exchanges">5 swaps completed</string>
+    <string name="badge_five_exchanges_hint">Accept or complete 5 swaps</string>
+    <string name="badge_trusted">Trusted contributor</string>
+    <string name="badge_trusted_hint">Trust score of 90 or higher</string>
+    <string name="badge_master">Barter Master</string>
+    <string name="badge_master_hint">Reach the highest level</string>
+</resources>
