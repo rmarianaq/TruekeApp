@@ -14,4 +14,6 @@
     <string name="map_my_location">My location</string>
     <string name="map_pick_title">Exchange point on the map</string>
     <string name="map_pick_hint">Tap the map to mark where you want to make the swap.</string>
+    <string name="map_user_title">Your location on the map</string>
+    <string name="map_user_hint">Tap the map to mark your approximate location. It is used to show you nearby items.</string>
 </resources>

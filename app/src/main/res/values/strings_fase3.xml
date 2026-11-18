@@ -14,4 +14,6 @@
     <string name="map_my_location">Mi ubicación</string>
     <string name="map_pick_title">Punto de intercambio en el mapa</string>
     <string name="map_pick_hint">Toca el mapa para marcar dónde quieres hacer el trueque.</string>
+    <string name="map_user_title">Tu ubicación en el mapa</string>
+    <string name="map_user_hint">Toca el mapa para marcar tu ubicación aproximada. Se usa para mostrarte objetos cercanos.</string>
 </resources>

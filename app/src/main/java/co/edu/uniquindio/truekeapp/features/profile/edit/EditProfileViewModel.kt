@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.edu.uniquindio.truekeapp.R
+import co.edu.uniquindio.truekeapp.domain.model.Location
 import co.edu.uniquindio.truekeapp.core.util.RequestResult
 import co.edu.uniquindio.truekeapp.core.util.Validators
 import co.edu.uniquindio.truekeapp.domain.repository.PublicationRepository
@@ -22,6 +23,7 @@ data class EditProfileUiState(
     val email: String = "",
     val address: String = "",
     val bio: String = "",
+    val location: Location? = null,
     @StringRes val nameError: Int? = null,
     @StringRes val emailError: Int? = null,
     @StringRes val addressError: Int? = null,
@@ -44,7 +46,7 @@ class EditProfileViewModel @Inject constructor(
         // Precarga el formulario con los datos actuales del usuario
         userRepository.currentUser.value?.let { user ->
             _uiState.update {
-                it.copy(name = user.name, email = user.email, address = user.address, bio = user.bio)
+                it.copy(name = user.name, email = user.email, address = user.address, bio = user.bio, location = user.location)
             }
         }
     }
@@ -53,6 +55,7 @@ class EditProfileViewModel @Inject constructor(
     fun onEmailChange(v: String) = _uiState.update { it.copy(email = v, emailError = null) }
     fun onAddressChange(v: String) = _uiState.update { it.copy(address = v, addressError = null) }
     fun onBioChange(v: String) = _uiState.update { it.copy(bio = v) }
+    fun onLocationPicked(v: Location) = _uiState.update { it.copy(location = v) }
 
     fun save() {
         val me = userRepository.currentUser.value ?: return
@@ -89,6 +92,7 @@ class EditProfileViewModel @Inject constructor(
                     email = s.email.trim().lowercase(),
                     address = s.address.trim(),
                     bio = s.bio.trim(),
+                    location = s.location ?: me.location,
                 )
             )
             _uiState.update { it.copy(result = RequestResult.Success(R.string.edit_profile_saved)) }

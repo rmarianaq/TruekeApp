@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.edu.uniquindio.truekeapp.R
+import co.edu.uniquindio.truekeapp.core.component.LocationPickerField
 import co.edu.uniquindio.truekeapp.core.component.TruekePrimaryButton
 import co.edu.uniquindio.truekeapp.core.component.TruekeSnackbarHost
 import co.edu.uniquindio.truekeapp.core.component.TruekeTextField
@@ -149,6 +150,14 @@ fun EditProfileScreen(
                 leadingIcon = Icons.Rounded.LocationOn,
                 errorRes = uiState.addressError,
                 enabled = enabled,
+            )
+            // Ubicación del usuario desde el mapa (requisito del proyecto final)
+            LocationPickerField(
+                location = uiState.location,
+                initialCenter = uiState.location,
+                onLocationPicked = viewModel::onLocationPicked,
+                titleRes = R.string.map_user_title,
+                hintRes = R.string.map_user_hint,
             )
             OutlinedTextField(
                 value = uiState.bio,

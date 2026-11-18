@@ -99,10 +99,12 @@ fun LocationPickerField(
     location: Location?,
     initialCenter: Location?,
     onLocationPicked: (Location) -> Unit,
+    titleRes: Int = R.string.map_pick_title,
+    hintRes: Int = R.string.map_pick_hint,
 ) {
-    Text(stringResource(R.string.map_pick_title), style = MaterialTheme.typography.titleSmall)
+    Text(stringResource(titleRes), style = MaterialTheme.typography.titleSmall)
     Text(
-        stringResource(R.string.map_pick_hint),
+        stringResource(hintRes),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )

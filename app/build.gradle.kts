@@ -119,8 +119,9 @@ dependencies {
     implementation(libs.mapbox.android)
     implementation(libs.mapbox.compose)
 
-    // Peticiones HTTP a Cloudinary y OpenRouter
-    implementation(libs.okhttp)
+    // Consumo de APIs REST (Cloudinary y OpenRouter) con Retrofit, guía 18
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
 
     // Pruebas
     testImplementation(libs.junit)

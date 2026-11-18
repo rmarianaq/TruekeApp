@@ -5,11 +5,15 @@ import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebaseNotification
 import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebaseProposalRepositoryImpl
 import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebasePublicationRepositoryImpl
 import co.edu.uniquindio.truekeapp.data.repository.firebase.FirebaseUserRepositoryImpl
+import co.edu.uniquindio.truekeapp.data.repository.remote.CloudinaryImageStorage
+import co.edu.uniquindio.truekeapp.data.repository.remote.OpenRouterImageValidator
 import co.edu.uniquindio.truekeapp.domain.repository.CommentRepository
 import co.edu.uniquindio.truekeapp.domain.repository.NotificationRepository
 import co.edu.uniquindio.truekeapp.domain.repository.ProposalRepository
 import co.edu.uniquindio.truekeapp.domain.repository.PublicationRepository
 import co.edu.uniquindio.truekeapp.domain.repository.UserRepository
+import co.edu.uniquindio.truekeapp.domain.service.ImageStorage
+import co.edu.uniquindio.truekeapp.domain.service.ImageValidator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -41,4 +45,13 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindProposalRepository(impl: FirebaseProposalRepositoryImpl): ProposalRepository
+
+    // Fase 3: servicios externos consumidos con Retrofit (guía 18)
+    @Binds
+    @Singleton
+    abstract fun bindImageStorage(impl: CloudinaryImageStorage): ImageStorage
+
+    @Binds
+    @Singleton
+    abstract fun bindImageValidator(impl: OpenRouterImageValidator): ImageValidator
 }

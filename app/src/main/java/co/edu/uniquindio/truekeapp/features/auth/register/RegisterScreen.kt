@@ -46,6 +46,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.edu.uniquindio.truekeapp.R
+import co.edu.uniquindio.truekeapp.core.component.LocationPickerField
+import co.edu.uniquindio.truekeapp.domain.model.Location
 import co.edu.uniquindio.truekeapp.core.component.AuthHeader
 import co.edu.uniquindio.truekeapp.core.component.LightSystemBarIcons
 import co.edu.uniquindio.truekeapp.core.component.PasswordStrengthIndicator
@@ -95,6 +97,7 @@ fun RegisterScreen(
         onConfirmPasswordChange = viewModel::onConfirmPasswordChange,
         onAddressChange = viewModel::onAddressChange,
         onTermsChange = viewModel::onTermsChange,
+        onLocationPicked = viewModel::onLocationPicked,
         onRegisterClick = viewModel::register,
         onBackClick = onBackClick,
         onLoginClick = onLoginClick,
@@ -111,6 +114,7 @@ private fun RegisterContent(
     onConfirmPasswordChange: (String) -> Unit,
     onAddressChange: (String) -> Unit,
     onTermsChange: (Boolean) -> Unit,
+    onLocationPicked: (Location) -> Unit = {},
     onRegisterClick: () -> Unit,
     onBackClick: () -> Unit,
     onLoginClick: () -> Unit,
@@ -187,6 +191,15 @@ private fun RegisterContent(
                     imeAction = ImeAction.Done,
                     onImeAction = { focusManager.clearFocus() },
                     enabled = enabled,
+                )
+
+                // Ubicación del usuario desde el mapa (requisito del proyecto final)
+                LocationPickerField(
+                    location = uiState.location,
+                    initialCenter = null,
+                    onLocationPicked = onLocationPicked,
+                    titleRes = R.string.map_user_title,
+                    hintRes = R.string.map_user_hint,
                 )
 
                 TermsCheckbox(

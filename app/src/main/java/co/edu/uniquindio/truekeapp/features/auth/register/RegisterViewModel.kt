@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import co.edu.uniquindio.truekeapp.R
 import co.edu.uniquindio.truekeapp.core.util.RequestResult
 import co.edu.uniquindio.truekeapp.core.util.Validators
+import co.edu.uniquindio.truekeapp.domain.model.Location
 import co.edu.uniquindio.truekeapp.domain.model.User
 import co.edu.uniquindio.truekeapp.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +25,7 @@ data class RegisterUiState(
     val password: String = "",
     val confirmPassword: String = "",
     val address: String = "",
+    val location: Location? = null,   // ubicación del usuario elegida en el mapa
     val acceptedTerms: Boolean = false,
     @StringRes val nameError: Int? = null,
     @StringRes val emailError: Int? = null,
@@ -50,6 +52,7 @@ class RegisterViewModel @Inject constructor(
     fun onConfirmPasswordChange(value: String) =
         _uiState.update { it.copy(confirmPassword = value, confirmPasswordError = null) }
     fun onAddressChange(value: String) = _uiState.update { it.copy(address = value, addressError = null) }
+    fun onLocationPicked(value: Location) = _uiState.update { it.copy(location = value) }
     fun onTermsChange(value: Boolean) = _uiState.update { it.copy(acceptedTerms = value, termsError = false) }
 
     fun register() {
@@ -106,6 +109,7 @@ class RegisterViewModel @Inject constructor(
                 email = state.email.trim().lowercase(),
                 password = state.password,
                 address = state.address.trim(),
+                location = state.location,
             )
             userRepository.save(user)
 
